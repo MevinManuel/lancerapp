@@ -1,0 +1,367 @@
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600&display=swap");
+
+/* Global Styles */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: "Syne", sans-serif;
+  box-sizing: border-box;
+}
+
+.splash-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 100vh; /* Ensure it covers the full height */
+  width: 100vw; /* Ensure it covers the full width */
+  margin: 0; /* Remove default margins */
+  padding: 0; /* Remove default padding */
+
+  background-image: url("D:/demoapp/lancerapp/lance/lan/src/assets/bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  overflow: hidden;
+}
+
+.splash-box {
+  background-color: #f8ffac14;
+  padding: 70px;
+  border-radius: 15px;
+  text-align: center;
+  width: 70%;
+  max-width: 500px;
+  box-shadow: 0px 0px 33.5px 3px rgba(56, 55, 55, 0.39);
+}
+
+.splash-box h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.splash-box p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.splash-button {
+  margin-top: 55px;
+  position: relative;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(
+    45deg,
+    #ebff57,
+    rgb(49, 55, 27),
+    rgb(255, 251, 0)
+  );
+  border-radius: 100px;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+
+.splash-button span {
+  position: relative;
+  z-index: 1;
+}
+
+.splash-button::before {
+  position: absolute;
+  inset: 1px;
+  background: rgb(59, 69, 42);
+  border-radius: 9px;
+  transition: 0.5s;
+}
+
+.splash-button:hover::before {
+  opacity: 0.7;
+}
+
+.splash-button::after {
+  content: "";
+  position: absolute;
+  inset: 0px;
+  background: linear-gradient(
+    45deg,
+    rgb(217, 255, 0),
+    rgb(31, 50, 17),
+    rgb(255, 230, 0)
+  );
+  border-radius: 9px;
+  transition: 0.5s;
+  opacity: 0;
+  filter: blur(20px);
+}
+
+.splash-button:hover:after {
+  opacity: 1;
+}
+
+.spline-container {
+  position: relative;
+}
+
+.spline-container canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.overlay-text {
+  position: absolute;
+  top: 45%;
+  left: 60%;
+  transform: translate(-10%, -50%);
+  text-align: right;
+  color: white;
+}
+
+/* Onboard Page */
+.onboard-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 100vh; /* Ensure it covers the full height */
+  width: 100vw; /* Ensure it covers the full width */
+  margin: 0; /* Remove default margins */
+  padding: 0; /* Remove default padding */
+
+  background-image: url("D:/demoapp/lancerapp/lance/lan/src/assets/onboardbg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.content-container {
+  text-align: center;
+}
+
+.logo {
+  width: 120px;
+  height: auto;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Ensure the container takes full width */
+}
+
+.text {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.textSS {
+  font-size: 1.2rem;
+  color: #fff;
+  margin-bottom: 30px;
+}
+
+.secondary-text {
+  font-size: 1rem;
+  color: #666;
+}
+
+.secondary-text a {
+  color: #ebff57;
+  text-decoration: none;
+}
+
+.secondary-text a:hover {
+  color: rgb(180, 194, 73);
+  transition: 500ms;
+  text-decoration: none;
+}
+
+/* Login Page */
+.login-page {
+  display: flex;
+  min-height: 100vh; /* Ensure it covers the full height */
+  width: 100vw; /* Ensure it covers the full width */
+  margin: 0; /* Remove default margins */
+  padding: 0; /* Remove default padding */
+}
+
+.signup-page {
+  display: flex;
+  min-height: 100vh; /* Ensure it covers the full height */
+  width: 100vw; /* Ensure it covers the full width */
+  margin: 0; /* Remove default margins */
+  padding: 0; /* Remove default padding */
+}
+
+.login-left,
+.login-right {
+  flex: 1;
+  padding: 40px;
+}
+
+.login-left {
+  background-color: #3e3f38;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-right {
+  background-image: url("D:/demoapp/lancerapp/lance/lan/src/assets/loginbg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.login-left h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.login-left p {
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.forgot-password {
+  text-align: right;
+  font-size: 0.9rem;
+  color: #ebff57;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+  color: rgb(193, 212, 47);
+}
+
+.login-button {
+  background-color: #ebff57;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.social-btn {
+  background-color: rgb(54, 55, 46);
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.social-btn:hover {
+  background-color: rgb(51, 51, 42);
+  border: 1px solid #ebff57;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.info-text {
+  padding: 10px 20px;
+  margin-top: 80px;
+  font-size: 1.2rem;
+  color: #fff;
+  text-align: center; /* Center the text horizontally */
+  position: absolute; /* Position the text absolutely */
+  bottom: 20px; /* Position the text near the bottom */
+  left: 55%; /* Center the text horizontally */
+  /* Adjust horizontal position to center */
+}
+
+.footer-text {
+  color: #ebff57;
+  text-align: left;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .splash-container,
+  .onboard-container,
+  .login-page {
+    flex-direction: column;
+  }
+
+  .splash-box,
+  .login-left,
+  .login-right {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .login-right .illustration img {
+    max-width: 200px;
+  }
+
+  .login-form {
+    gap: 10px;
+  }
+
+  .login-input,
+  .login-button,
+  .social-btn {
+    font-size: 0.6rem;
+    padding: 8px;
+  }
+
+  .text,
+  .info-text,
+  .textSS {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-left h1 {
+    font-size: 1.5rem;
+  }
+
+  .social-icons {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .social-btn {
+    padding: 8px 12px;
+  }
+
+  .info-text {
+    font-size: 1rem;
+  }
+}
