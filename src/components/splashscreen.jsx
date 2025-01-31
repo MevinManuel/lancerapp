@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import "D:/demoapp/lancerapp/lance/lan/src/style.css"; 
+import "D:/demoapp/lancerappl/lance/lan/lancerapp/src/style.css"; 
 import Spline from '@splinetool/react-spline';
 
 const SplashScreen = () => {

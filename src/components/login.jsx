@@ -1,9 +1,8 @@
 import React from 'react';
-import 'D:/demoapp/lancerapp/lance/lan/src/style.css'; // Link to the CSS file
-import Continue from 'D:/demoapp/lancerapp/lance/lan/src/special/continue.jsx';
-import Input from 'D:/demoapp/lancerapp/lance/lan/src/special/input.jsx';
-import Inputpass from 'D:/demoapp/lancerapp/lance/lan/src/special/inputpass.jsx';
-
+import 'D:/demoapp/lancerappl/lance/lan/lancerapp/src/style.css'; // Link to the CSS file
+import Continue from 'D:/demoapp/lancerappl/lance/lan/lancerapp/src/special/continue.jsx';
+import Input from 'D:/demoapp/lancerappl/lance/lan/lancerapp/src/special/input.jsx';
+import Inputpass from 'D:/demoapp/lancerappl/lance/lan/lancerapp/src/special/inputpass.jsx';
 
 function LoginPage() {
   return (

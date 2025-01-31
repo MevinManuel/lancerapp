@@ -1,6 +1,6 @@
 import React from 'react';
-import "D:/demoapp/lancerapp/lance/lan/src/style.css"; 
-import But from 'D:/demoapp/lancerapp/lance/lan/src/special/But.jsx';
+import "D:/demoapp/lancerappl/lance/lan/lancerapp/src/style.css"; 
+import But from 'D:/demoapp/lancerappl/lance/lan/lancerapp/src/special/But.jsx';
 import { Link } from 'react-router-dom';
 
 
