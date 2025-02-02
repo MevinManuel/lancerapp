@@ -4,6 +4,8 @@ import SplashScreen from './components/splashscreen.jsx';
 import OnboardScreen from './components/onboard';
 import LoginPage from './components/login.jsx'; 
 import SignUp from './components/SignUp.jsx';
+import Search from './components/search.jsx';
+import Home from './components/home.jsx';
 
 
 function App() {
@@ -14,6 +16,7 @@ function App() {
         <Route path="/Onboard" element={<OnboardScreen />} /> {/* Onboard Screen */}
         <Route path="/login" element={<LoginPage />} /> {/* Login Page */}
         <Route path="/SignUp" element={<SignUp />} /> {/* Login Page */}
+        <Route path="/home" element={<Home />} /> {/* Login Page */}
 
       </Routes>
     </Router>
