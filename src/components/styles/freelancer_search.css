@@ -1,0 +1,141 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+}
+
+.card {
+  width: 300px;
+  height: 450px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.info-container {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.info-box {
+  background: #e0e0e0;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 14px;
+}
+
+.designation {
+  margin: 20px 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.profile-button {
+  padding: 10px 20px;
+  border: none;
+  background: #007bff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+.profile-button:hover {
+  background: #0056b3;
+}
+
+.button-container {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.button-container button {
+  padding: 10px 20px;
+  border: none;
+  background: #ff4757;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+.button-container button:hover {
+  background: #e84118;
+}
+
+.bio-container {
+  width: 65%;
+  height: 95%;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.skill-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.skill-box {
+  background: #e0e0e0;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 14px;
+}
+
+h2 {
+  color: rgb(9, 9, 9);
+  font-size: 24px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+h3 {
+  color: rgb(9, 9, 9);
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+p {
+  color: rgb(33, 35, 24);
+  font-size: 16px;
+  margin: 5px 0;
+}

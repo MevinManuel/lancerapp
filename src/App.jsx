@@ -4,8 +4,9 @@ import SplashScreen from './components/splashscreen.jsx';
 import OnboardScreen from './components/onboard';
 import LoginPage from './components/login.jsx'; 
 import SignUp from './components/SignUp.jsx';
-import Search from './components/search.jsx';
 import Home from './components/home.jsx';
+import Pplsearch from './components/freelancer_search.jsx';
+import Jobsearch from './components/joblisting.jsx';
 
 
 function App() {
@@ -17,6 +18,8 @@ function App() {
         <Route path="/login" element={<LoginPage />} /> {/* Login Page */}
         <Route path="/SignUp" element={<SignUp />} /> {/* Login Page */}
         <Route path="/home" element={<Home />} /> {/* Login Page */}
+        <Route path="/freelancer_search" element={<Pplsearch />} /> {/* Login Page */}
+        <Route path="/JobListing" element={<Jobsearch />} /> {/* Login Page */}
 
       </Routes>
     </Router>

@@ -1,12 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Input = () => {
+const InputPass = ({ value, onChange, placeholder }) => {
   return (
     <StyledWrapper>
       <div className="input">
-        <input type="password" required autoComplete="off" />
-        <label htmlFor="name">Password</label>
+        <input 
+          type="password" 
+          required 
+          autoComplete="off" 
+          value={value} 
+          onChange={onChange} 
+        />
+        <label>{placeholder}</label>
       </div>
     </StyledWrapper>
   );
@@ -53,4 +59,5 @@ const StyledWrapper = styled.div`
     border-color: #ebff57;
   }`;
 
-export default Input;
+
+export default InputPass;

@@ -1,12 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Input = () => {
+const Inputname = ({ value, onChange, placeholder }) => {
   return (
     <StyledWrapper>
       <div className="input">
-        <input type="text" required autoComplete="off" />
-        <label htmlFor="name">UserName</label>
+        <input 
+          type="text" 
+          required 
+          autoComplete="off" 
+          value={value} 
+          onChange={onChange} 
+        />
+        <label>{placeholder}</label>
       </div>
     </StyledWrapper>
   );
@@ -51,18 +57,7 @@ const StyledWrapper = styled.div`
 
   .inputGroup :is(input:focus, input:valid) {
     border-color: #ebff57;
-
-
-    @media (max-width: 768px) {
-    input {
-      font-size: 0.9em;
-      padding: 0.8em;
-    }
-
-    label {
-      font-size: 0.9em;
-    }
-  }
   }`;
 
-export default Input;
+
+export default Inputname;

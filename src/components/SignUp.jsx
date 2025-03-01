@@ -1,5 +1,5 @@
 import React from 'react';
-import 'D:/demoapp/lancerappl/lance/lan/lancerapp/src/style.css'; // Link to the CSS file
+import '../style.css'; // Link to the CSS file
 import Continue from 'D:/demoapp/lancerappl/lance/lan/lancerapp/src/special/continue.jsx';
 import Input from 'D:/demoapp/lancerappl/lance/lan/lancerapp/src/special/input.jsx';
 import Inputpass from 'D:/demoapp/lancerappl/lance/lan/lancerapp/src/special/inputpass.jsx';

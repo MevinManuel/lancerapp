@@ -1,0 +1,103 @@
+/* General Reset */
+
+/* Heading */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Post a Job Button */
+.post-job {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 2px solid #d4d24c;
+  color: #d4d24c;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 30px;
+}
+
+.post-job:hover {
+  background: #d4d24c;
+  color: #2d2c28;
+}
+
+/* Job List */
+.job-list {
+  width: 90%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Job Card */
+.job-card {
+  background: #4a4844;
+  color: #eaeaea;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  width: 100%;
+}
+
+.job-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Job Title */
+.job-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Job Description */
+.job-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #c2c2c2;
+  margin-bottom: 15px;
+}
+
+/* Responsibilities */
+.responsibilities {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+ul li {
+  list-style: disc;
+  color: #d4d24c;
+}
+
+/* Tags */
+.tags {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.tag {
+  background: none;
+  border: 1px solid #d4d24c;
+  color: #d4d24c;
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+}

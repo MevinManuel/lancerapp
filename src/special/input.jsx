@@ -1,12 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Input = () => {
+const Input = ({ value, onChange, placeholder }) => {
   return (
     <StyledWrapper>
       <div className="input">
-        <input type="text" required autoComplete="off" />
-        <label htmlFor="name">Email</label>
+        <input 
+          type="text" // type
+          required 
+          autoComplete="off" 
+          value={value} 
+          onChange={onChange} 
+        />
+        <label>{placeholder}</label>
       </div>
     </StyledWrapper>
   );
@@ -52,5 +58,6 @@ const StyledWrapper = styled.div`
   .inputGroup :is(input:focus, input:valid) {
     border-color: #ebff57;
   }`;
+
 
 export default Input;
