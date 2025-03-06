@@ -1,103 +1,151 @@
-/* General Reset */
-
-/* Heading */
-h1 {
-  font-size: 2.5rem;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 20px;
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 50% 30%;
+  }
+  50% {
+    background-position: 100% 70%;
+  }
+  75% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-/* Post a Job Button */
-.post-job {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: 2px solid #d4d24c;
-  color: #d4d24c;
-  padding: 10px 20px;
-  font-size: 1rem;
-  font-weight: bold;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-bottom: 30px;
+/* Background animation effect */
+.bg-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+      circle at 30% 30%,
+      rgba(0, 11, 3, 0.6),
+      transparent
+    ),
+    radial-gradient(circle at 70% 70%, rgba(207, 255, 17, 0.28), transparent),
+    radial-gradient(circle at 50% 50%, rgba(224, 255, 137, 0.44), transparent),
+    linear-gradient(to bottom, rgba(0, 50, 0, 0.5), transparent);
+  background-size: 300% 300%;
+  animation: gradientShift 5s infinite alternate ease-in-out;
+  z-index: 0;
+  opacity: 1;
+  filter: blur(20px);
 }
 
-.post-job:hover {
-  background: #d4d24c;
-  color: #2d2c28;
+/* Optional: Adding a noise effect for texture */
+.bg-noise {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("https://www.transparenttextures.com/patterns/diagmonds.png");
+  opacity: 2;
+  z-index: 0;
 }
 
-/* Job List */
-.job-list {
-  width: 90%;
-  max-width: 800px;
+.container {
+  background-color: #222;
+  color: #eee;
+  font-family: sans-serif;
+  padding: 20px;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  box-sizing: border-box;
+  overflow: hidden; /* Prevent content from overflowing */
 }
 
-/* Job Card */
-.job-card {
-  background: #4a4844;
-  color: #eaeaea;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease-in-out;
-  cursor: pointer;
-  width: 100%;
+.header {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  flex-shrink: 0; /* Prevent the header from shrinking */
+  position: relative;
 }
 
-.job-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.5);
-}
-
-/* Job Title */
-.job-title {
-  font-size: 1.5rem;
+.post-job-button {
+  background-color: #333;
+  color: #a8e063;
+  border: 1px solid #a8e063;
+  padding: 10px 20px;
+  border-radius: 5px;
   font-weight: bold;
+  cursor: pointer;
+  align-self: flex-start;
+  flex-shrink: 0; /* Prevent the button from shrinking */
+  transition: box-shadow 0.3s ease;
+  position: relative;
+}
+
+.post-job-button:hover {
+  box-shadow: 0 0 10px #a8e063; /* Green glow on hover */
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  margin-top: 30px;
+  gap: 20px;
+  overflow-y: auto; /* Allow vertical scrolling */
+}
+
+.card-list {
+  flex: 1;
+  padding-right: 20px;
+  box-sizing: border-box;
+}
+
+.job-card {
+  background-color: #333;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.card-title {
+  font-size: 1.5em;
   margin-bottom: 10px;
 }
 
-/* Job Description */
-.job-desc {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: #c2c2c2;
+.card-location,
+.card-time {
+  font-size: 1em;
+  color: #ccc;
+  margin-bottom: 5px;
+}
+
+.card-time {
   margin-bottom: 15px;
 }
 
-/* Responsibilities */
-.responsibilities {
-  font-size: 0.9rem;
-  margin-bottom: 10px;
-}
-
-ul {
-  padding-left: 20px;
-}
-
-ul li {
-  list-style: disc;
-  color: #d4d24c;
-}
-
-/* Tags */
-.tags {
+.skill-tags {
   display: flex;
-  gap: 10px;
-  margin-top: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
 }
 
-.tag {
-  background: none;
-  border: 1px solid #d4d24c;
-  color: #d4d24c;
-  padding: 5px 12px;
-  border-radius: 15px;
-  font-size: 0.85rem;
+.skill-tag {
+  background-color: #444;
+  color: #a8e063;
+  padding: 5px 10px;
+  border-radius: 20px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+.description-box {
+  background-color: #444;
+  padding: 20px;
+  border-radius: 8px;
+  flex: 2;
+  box-sizing: border-box;
 }

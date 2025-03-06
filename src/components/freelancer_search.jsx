@@ -36,7 +36,7 @@ const FreelancerSearch = () => {
             <div className="info-box">📍 {profiles[index].location}</div>
           </div>
           <h3 className="designation">{profiles[index].designation}</h3>
-          <button className="profile-button">View Profile</button>
+          <button className="chat-button">Chat</button>
         </div>
         <div className="button-container">
           <button onClick={handleGoBack}>Back</button>

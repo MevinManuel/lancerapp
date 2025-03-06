@@ -83,7 +83,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem 5rem;
+  padding: 1rem 2rem;
   background: rgba(35, 50, 21, 0.5);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(158, 255, 0, 0.2);
@@ -91,6 +91,8 @@ body {
   position: relative;
   top: 30px;
   border-radius: 50px;
+  width: 60%;
+  margin: auto;
 }
 
 .nav-container {
@@ -98,13 +100,6 @@ body {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 1200px;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(158, 255, 0, 0.2);
-  box-shadow: 0 0 10px var(--glow-green);
-  padding: 1rem 2rem;
-  border-radius: 50px;
 }
 
 .logo {
@@ -121,25 +116,14 @@ body {
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 2rem;
-}
-
-.nav-link {
-  color: white;
-  text-decoration: none;
-  opacity: 0.8;
-  transition: opacity 0.3s;
-}
-
-.nav-link:hover {
-  opacity: 1;
+  gap: 1rem;
 }
 
 .try-free-btn {
   background-color: var(--neon-green);
   color: black;
   border: none;
-  padding: 1rem 1rem;
+  padding: 1rem 2rem;
   border-radius: 50px;
   cursor: pointer;
   font-weight: bold;
@@ -149,6 +133,41 @@ body {
 
 .try-free-btn:hover {
   box-shadow: 0 0 15px var(--neon-green);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: row;
+    align-items: center;
+    width: 90%;
+    padding: 1rem;
+    justify-content: space-between;
+  }
+
+  .nav-container {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .nav-right {
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+    gap: 0.5rem;
+    margin-top: 0;
+  }
+
+  .logo {
+    width: 10vw;
+    margin-bottom: 0;
+  }
+
+  .try-free-btn {
+    align-self: flex-end;
+  }
 }
 
 .hero {
@@ -387,32 +406,6 @@ footer {
   footer {
     grid-template-columns: 1fr;
     padding: 2rem; /* Adjust padding for smaller screens */
-  }
-
-  .navbar {
-    padding: 1rem 2rem; /* Adjust padding for smaller screens */
-    flex-direction: column; /* Stack navbar elements */
-    align-items: flex-start; /* Align items to the left */
-    border-radius: 20px;
-    top: 10px;
-  }
-
-  .nav-container {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 1rem;
-    border-radius: 20px;
-  }
-
-  .nav-right {
-    flex-direction: column; /* Stack right nav items */
-    gap: 1rem; /* Reduce gap between stacked items */
-    margin-top: 1rem;
-  }
-
-  .logo {
-    width: 10vw; /* Make logo bigger on smaller screens */
-    margin-bottom: 1rem; /* Add margin below logo */
   }
 
   .search-container {

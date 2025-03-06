@@ -18,16 +18,7 @@ const HomePage = () => {
       <nav className="navbar">
         <div className="logo"></div>
         <div className="nav-right">
-          <a href="#" className="nav-link">
-            USD
-          </a>
-          <a href="#" className="nav-link">
-            Profile
-          </a>
-          <a href="#" className="nav-link">
-            Log in
-          </a>
-          <button className="try-free-btn">Try it for free</button>
+          <button className="try-free-btn"> Profile </button>
         </div>
       </nav>
 
@@ -113,9 +104,11 @@ const HomePage = () => {
             <a href="#">Freelancers</a>
           </div>
           <div className="footer-section">
-            <h4>Contact</h4>
-            <p>+123 456789</p>
-            <p>service@gmail.com</p>
+            <h4>Developed By</h4>
+            <p>Mevin Manuel</p>
+            <p>Alphonsa Maria</p>
+            <p>R RBalagopal</p>
+
           </div>
         </footer>
       </main>

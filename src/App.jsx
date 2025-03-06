@@ -6,7 +6,7 @@ import LoginPage from './components/login.jsx';
 import SignUp from './components/SignUp.jsx';
 import Home from './components/home.jsx';
 import Pplsearch from './components/freelancer_search.jsx';
-import Jobsearch from './components/joblisting.jsx';
+import Jobsearch from './components/JobListing.jsx';
 
 
 function App() {
