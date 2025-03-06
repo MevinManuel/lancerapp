@@ -1,5 +1,4 @@
 import './styles/home.css';
-
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
@@ -18,7 +17,8 @@ const HomePage = () => {
       <nav className="navbar">
         <div className="logo"></div>
         <div className="nav-right">
-          <button className="try-free-btn"> Profile </button>
+        <button className="try-free-btn" > Profile </button>
+        
         </div>
       </nav>
 
