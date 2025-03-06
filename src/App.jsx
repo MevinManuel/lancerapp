@@ -11,7 +11,7 @@ import Jobsearch from './components/JobListing.jsx';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/lancerapp">
       <Routes>
         <Route path="/" element={<SplashScreen />} /> {/* Splash Screen */}
         <Route path="/Onboard" element={<OnboardScreen />} /> {/* Onboard Screen */}
