@@ -4,8 +4,9 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 
 export default defineConfig({
+  base: '/lancerapp/',
   plugins: [react()],
   build: {
-    outDir: 'build'  // Specify the output directory
+    outDir: 'dist'  // Specify the output directory
   }
 });
