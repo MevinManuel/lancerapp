@@ -7,6 +7,7 @@ import SignUp from './components/SignUp.jsx';
 import Home from './components/home.jsx';
 import Pplsearch from './components/freelancer_search.jsx';
 import Jobsearch from './components/JobListing.jsx';
+import ProfileEdit from './components/profileedit.jsx'; // Ensure the import is correct
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/home" element={<Home />} /> {/* Login Page */}
         <Route path="/freelancer_search" element={<Pplsearch />} /> {/* Login Page */}
         <Route path="/JobListing" element={<Jobsearch />} /> {/* Login Page */}
+        <Route path="/profileedit" element={<ProfileEdit />} /> {/* Profile Page */}
 
       </Routes>
     </Router>

@@ -7,7 +7,7 @@ const Continue = () => {
   const navigate = useNavigate(); 
 
   const handleButtonClick = () => {
-    navigate('/home'); 
+    navigate('/profileedit'); 
   };
 
 

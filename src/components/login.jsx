@@ -1,10 +1,18 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../style.css'; // Link to the CSS file
-import Continue from 'D:/demoapp/lancerappl/lance/lan/lancerapp/src/special/continue.jsx';
 import Input from 'D:/demoapp/lancerappl/lance/lan/lancerapp/src/special/input.jsx';
 import Inputpass from 'D:/demoapp/lancerappl/lance/lan/lancerapp/src/special/inputpass.jsx';
 
 function LoginPage() {
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    // Add your login logic here
+    navigate('/home'); // Navigate to the Home page
+  };
+
   return (
     <div className="login-page">
       {/* Left Section */}
@@ -13,11 +21,11 @@ function LoginPage() {
         <p className="textSS">
           Reconnect, Restart, Recharge with <strong>LANCER</strong>. Get started for free.
         </p>
-        <form className="login-form">
+        <form className="login-form" onSubmit={handleLogin}>
           <Input type="text" placeholder="Email" className="login-input" />
           <Inputpass type="password" placeholder="Password" className="login-input" />
           <a href="#" className="forgot-password">Forgot Password?</a>
-          <Continue type="submit" >continue</Continue>
+          <button type="submit" className="login-but">Continue</button>
         </form>
         <p className="continue-text">or continue with</p>
         <div className="social-icons">

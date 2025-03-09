@@ -17,8 +17,8 @@ const HomePage = () => {
       <nav className="navbar">
         <div className="logo"></div>
         <div className="nav-right">
-        <button className="try-free-btn" > Profile </button>
-        
+        <button className="try-free-btn" onClick={() => handleNavigation("/Profileedit")}> Profile </button>
+                
         </div>
       </nav>
 
