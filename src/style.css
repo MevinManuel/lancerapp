@@ -140,6 +140,9 @@ html {
 }
 
 .logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 120px;
   height: auto;
 }

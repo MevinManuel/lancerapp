@@ -9,13 +9,10 @@ import { Link } from 'react-router-dom';
     <div className="onboard-container">
       <div className="content-container">
         
-        <div className="logo-container">
-        <img
-            src="/images/l.png" 
-            alt="Logo"
-            className="logo"
-          />
-        </div>
+      <div className="logo-container">
+       <img className="logo" src="images/l.png" alt="Lancer Logo" />
+       </div>
+
         <h1 className='text'>Welcome to LANCER</h1>
         <p className='textSS'>Unleash Your Full Potential and Bring Your Vision to Life</p>
         <br></br>

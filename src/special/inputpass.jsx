@@ -22,7 +22,7 @@ const StyledWrapper = styled.div`
   .input {
     font-family: 'Segoe UI', sans-serif;
     margin: 1em 0 1em 0;
-    max-width: 130px;
+    max-width: 120px;
     position: relative;
   }
 

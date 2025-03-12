@@ -15,7 +15,7 @@ function App() {
   return (
     <Router basename="/lancerapp">
       <Routes>
-        <Route path="/" element={<Chat />} /> {/* Splash Screen */}
+        <Route path="/" element={<SplashScreen />} /> {/* Splash Screen */}
         <Route path="/Onboard" element={<OnboardScreen />} /> {/* Onboard Screen */}
         <Route path="/login" element={<LoginPage />} /> {/* Login Page */}
         <Route path="/SignUp" element={<SignUp />} /> {/* Login Page */}
@@ -23,6 +23,7 @@ function App() {
         <Route path="/freelancer_search" element={<Pplsearch />} /> {/* Login Page */}
         <Route path="/JobListing" element={<Jobsearch />} /> {/* Login Page */}
         <Route path="/profileedit" element={<ProfileEdit />} /> {/* Profile Page */}
+        <Route path="/chat" element={<Chat />} /> {/* Profile Page */}
 
       </Routes>
     </Router>

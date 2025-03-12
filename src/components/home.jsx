@@ -33,7 +33,6 @@ const HomePage = () => {
 
           <div className="search-container">
             <input type="text" placeholder="Search for Jobs & Freelancers" className="search-input" />
-            <div className="search-icon">🔍</div>
           </div>
         </section>
 
@@ -62,7 +61,7 @@ const HomePage = () => {
             <p>Browse job offers by some of the best companies</p>
           </div>
 
-          <div className="feature-card">
+          <div className="feature-card" onClick={() => handleNavigation("/chat")}>
             <div className="icon-container">
               <i className="icon">💬</i>
             </div>
