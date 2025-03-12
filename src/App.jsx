@@ -7,6 +7,7 @@ import SignUp from './components/SignUp.jsx';
 import Home from './components/home.jsx';
 import Pplsearch from './components/freelancer_search.jsx';
 import Jobsearch from './components/JobListing.jsx';
+import Chat from './components/chat.jsx';
 import ProfileEdit from './components/profileedit.jsx'; // Ensure the import is correct
 
 
@@ -14,7 +15,7 @@ function App() {
   return (
     <Router basename="/lancerapp">
       <Routes>
-        <Route path="/" element={<SplashScreen />} /> {/* Splash Screen */}
+        <Route path="/" element={<Chat />} /> {/* Splash Screen */}
         <Route path="/Onboard" element={<OnboardScreen />} /> {/* Onboard Screen */}
         <Route path="/login" element={<LoginPage />} /> {/* Login Page */}
         <Route path="/SignUp" element={<SignUp />} /> {/* Login Page */}

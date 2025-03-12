@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import './styles/freelancer_search.css';
 
-<div className="bg-noise"></div>
-
-
 const profiles = [
   { id: 1, name: 'John Doe', age: 25, bio: 'Loves hiking and photography', phone: '123-456-7890', email: 'john@example.com', resume: 'resume.pdf', skills: ['React', 'CSS', 'JavaScript'], about: 'Passionate UI designer with a knack for aesthetics.', rating: 4.5, location: 'New York', designation: 'UI Designer', image: 'https://via.placeholder.com/150' },
   { id: 2, name: 'Jane Smith', age: 28, bio: 'Avid traveler and foodie', phone: '987-654-3210', email: 'jane@example.com', resume: 'resume.pdf', skills: ['Python', 'Django', 'Machine Learning'], about: 'Software engineer with a love for AI and automation.', rating: 4.7, location: 'Los Angeles', designation: 'Software Engineer', image: 'https://via.placeholder.com/150' },
@@ -26,21 +23,23 @@ const FreelancerSearch = () => {
   };
 
   return (
-    <div className="container">
-      <div className="card-container">
-        <div className="card">
-          <img className="profile-image" src={profiles[index].image} alt={profiles[index].name} />
-          <h2>{profiles[index].name}, {profiles[index].age}</h2>
-          <div className="info-container">
-            <div className="info-box">⭐ {profiles[index].rating}</div>
-            <div className="info-box">📍 {profiles[index].location}</div>
+    <div className="main-container">
+      <div className="container">
+        <div className="card-container">
+          <div className="card">
+            <img className="profile-image" src={profiles[index].image} alt={profiles[index].name} />
+            <h2>{profiles[index].name}, {profiles[index].age}</h2>
+            <div className="info-container">
+              <div className="info-box">⭐ {profiles[index].rating}</div>
+              <div className="info-box">📍 {profiles[index].location}</div>
+            </div>
+            <h3 className="designation">{profiles[index].designation}</h3>
+            <button className="chat-button">Chat</button>
           </div>
-          <h3 className="designation">{profiles[index].designation}</h3>
-          <button className="chat-button">Chat</button>
-        </div>
-        <div className="button-container">
-          <button onClick={handleGoBack}>Back</button>
-          <button onClick={handleGoForward}>Forward</button>
+          <div className="button-container">
+            <button onClick={handleGoBack}>Back</button>
+            <button onClick={handleGoForward}>Forward</button>
+          </div>
         </div>
       </div>
       <div className="bio-container">
