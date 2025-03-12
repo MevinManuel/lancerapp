@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600&display=swap");
+
 :root {
   --neon-green: rgb(147, 205, 55);
   --dark-bg: #001a00;
@@ -9,7 +11,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Arial", sans-serif;
+  font-family: "Syne", sans-serif;
 }
 
 body {

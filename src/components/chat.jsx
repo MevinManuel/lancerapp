@@ -25,6 +25,7 @@ const ChatPage = () => {
 
   return (
     <div className="chat-container">
+      
       {/* Sidebar with Back Arrow */}
       <aside className="sidebar">
         <div className="back-arrow" onClick={() => navigate("/home")}>← Home</div>
