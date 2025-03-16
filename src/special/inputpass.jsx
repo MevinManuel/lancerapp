@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const InputPass = ({ value, onChange, placeholder }) => {
+const InputPass = ({ name, value, onChange, placeholder }) => {
   return (
     <StyledWrapper>
       <div className="input">
         <input 
-          type="password" 
+          type="password"  
+          name={name}   // ✅ Added name attribute to properly update state
           required 
           autoComplete="off" 
           value={value} 
@@ -16,7 +17,7 @@ const InputPass = ({ value, onChange, placeholder }) => {
       </div>
     </StyledWrapper>
   );
-}
+};
 
 const StyledWrapper = styled.div`
   .input {

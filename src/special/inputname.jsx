@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Inputname = ({ value, onChange, placeholder }) => {
+const Inputname = ({ name, value, onChange, placeholder }) => {
   return (
     <StyledWrapper>
       <div className="input">
         <input 
           type="text" 
+          name={name} // ✅ Add name attribute
           required 
           autoComplete="off" 
           value={value} 
@@ -16,7 +17,8 @@ const Inputname = ({ value, onChange, placeholder }) => {
       </div>
     </StyledWrapper>
   );
-}
+};
+
 
 const StyledWrapper = styled.div`
   .input {

@@ -1,0 +1,132 @@
+:root {
+  --neon-green: rgb(147, 205, 55);
+  --dark-bg: rgb(34, 41, 28);
+  --card-bg: rgba(20, 40, 20, 0.9);
+  --glow-green: rgba(158, 255, 0, 4);
+  --user-msg-bg: #1f7a1f;
+  --bot-msg-bg: #254d25;
+  --border-color: #aaffaa;
+  --text-color: #e0ffe0;
+}
+
+.chatbot-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensures input stays at bottom */
+  align-items: center;
+  height: 100vh; /* Takes full viewport height */
+  width: 100vw; /* Full width */
+  background-color: var(--dark-bg);
+  padding: 20px;
+  border-radius: 12px;
+  color: var(--text-color);
+  box-shadow: 0 5px 20px var(--glow-green);
+  border: 1px solid var(--border-color);
+}
+
+h3 {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* 🟢 Chatbox auto-fits within available space */
+.chatbox {
+  flex-grow: 1; /* Expands to fill space */
+  width: 100%;
+  overflow-y: auto;
+  border: 2px solid var(--border-color);
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  background-color: var(--card-bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  padding: 12px 16px;
+  border-radius: 12px;
+  margin: 8px 0;
+  font-size: 15px;
+  max-width: 80%;
+  color: var(--text-color);
+  line-height: 1.5;
+  word-wrap: break-word;
+  display: inline-block;
+}
+
+.message.user {
+  background-color: var(--user-msg-bg);
+  align-self: flex-end;
+  text-align: left;
+  border: 1px solid var(--border-color);
+}
+
+.message.bot {
+  background-color: var(--bot-msg-bg);
+  align-self: flex-start;
+  text-align: left;
+  border: 1px solid var(--border-color);
+}
+
+/* 🟢 Make links inside messages look better */
+.message a {
+  color: var(--neon-green);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.message a:hover {
+  text-decoration: underline;
+}
+
+/* 🟢 Chat input form (contains both input & button) */
+.chat-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensures alignment */
+  gap: 12px; /* Adds spacing between input and button */
+  width: 100%;
+  padding-top: 10px;
+}
+
+/* 🟢 Chat input container (flexible & responsive) */
+.chat-input-container {
+  flex-grow: 1; /* Ensures input field takes available space */
+  display: flex;
+}
+
+/* 🟢 Chat input field */
+.chat-input {
+  width: 100%; /* Makes it responsive */
+  padding: 14px;
+  border-radius: 8px;
+  border: 2px solid var(--border-color);
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  font-size: 16px;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.chat-input:focus {
+  border-color: var(--neon-green);
+}
+
+/* 🟢 Send button (aligned properly) */
+.send-button {
+  padding: 14px 18px;
+  background-color: var(--neon-green);
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+  white-space: nowrap; /* Prevents text from wrapping */
+}
+
+.send-button:hover {
+  background-color: rgb(91, 123, 54);
+}

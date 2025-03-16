@@ -17,7 +17,7 @@ const HomePage = () => {
       <nav className="navbar">
         <div className="logo"></div>
         <div className="nav-right">
-        <button className="try-free-btn" onClick={() => handleNavigation("/Profileedit")}> Profile </button>
+        <button className="try-free-btn" onClick={() => handleNavigation("/profile")}> Profile </button>
                 
         </div>
       </nav>
@@ -90,7 +90,7 @@ const HomePage = () => {
             </p>
             <div className="email-signup">
               <input type="email" placeholder="Your email address here" />
-              <button className="subscribe-btn">Subscribe Now</button>
+              <button className="subscribe-btn" onClick={() => handleNavigation("/chatbot")}>Chat Now</button>
             </div>
           </div>
         </section>

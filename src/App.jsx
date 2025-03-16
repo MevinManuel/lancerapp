@@ -9,6 +9,9 @@ import Pplsearch from './components/freelancer_search.jsx';
 import Jobsearch from './components/JobListing.jsx';
 import Chat from './components/chat.jsx';
 import ProfileEdit from './components/profileedit.jsx'; // Ensure the import is correct
+import Profile from './components/profile.jsx'; // Ensure the import is correct
+import Chatbot from './components/chatbot.jsx';
+
 
 
 function App() {
@@ -24,6 +27,8 @@ function App() {
         <Route path="/JobListing" element={<Jobsearch />} /> {/* Login Page */}
         <Route path="/profileedit" element={<ProfileEdit />} /> {/* Profile Page */}
         <Route path="/chat" element={<Chat />} /> {/* Profile Page */}
+        <Route path="/Profile" element={<Profile />} /> {/* Profile Page */}
+        <Route path="/Chatbot" element={<Chatbot />} /> {/* Profile Page */}
 
       </Routes>
     </Router>
