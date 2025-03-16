@@ -1,5 +1,6 @@
 import './styles/home.css';
 import { useNavigate } from "react-router-dom";
+import { FaUsers, FaSearch, FaCommentDots, FaChevronDown } from "react-icons/fa"; // Import FA icons
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -8,8 +9,19 @@ const HomePage = () => {
     navigate(path);
   };
 
+  // Function to scroll down to features section
+  const scrollToFeatures = () => {
+    const featuresSection = document.querySelector(".features");
+    if (featuresSection) {
+      const offset = 50; // Adjust this value to control the exact scroll position
+      window.scrollTo({
+        top: featuresSection.offsetTop - offset,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
-    
     <div className="homepage">
       <div className="bg-animation"></div>
       <div className="bg-noise"></div>
@@ -17,8 +29,7 @@ const HomePage = () => {
       <nav className="navbar">
         <div className="logo"></div>
         <div className="nav-right">
-        <button className="try-free-btn" onClick={() => handleNavigation("/profile")}> Profile </button>
-                
+          <button className="profile-btn" onClick={() => handleNavigation("/profile")}> Profile </button>
         </div>
       </nav>
 
@@ -31,15 +42,16 @@ const HomePage = () => {
           </h1>
           <p>Unleash your full potential and bring your vision to life</p>
 
-          <div className="search-container">
-            <input type="text" placeholder="Search for Jobs & Freelancers" className="search-input" />
-          </div>
+          {/* Scroll Down Arrow Button */}
+          <button className="scroll-down-btn" onClick={scrollToFeatures}>
+            <FaChevronDown />
+          </button>
         </section>
 
         <section className="features">
-        <div className="feature-card" onClick={() => handleNavigation("/freelancer_search")}> 
-        <div className="icon-container">
-              <i className="icon">👥</i>
+          <div className="feature-card" onClick={() => handleNavigation("/freelancer_search")}> 
+            <div className="icon-container">
+              <FaUsers className="icon" />
             </div>
             <h3>
               Browse
@@ -50,8 +62,8 @@ const HomePage = () => {
           </div>
 
           <div className="feature-card" onClick={() => handleNavigation("/JobListing")}> 
-          <div className="icon-container">
-              <i className="icon">🔍</i>
+            <div className="icon-container">
+              <FaSearch className="icon" />
             </div>
             <h3>
               Explore
@@ -63,7 +75,7 @@ const HomePage = () => {
 
           <div className="feature-card" onClick={() => handleNavigation("/chat")}>
             <div className="icon-container">
-              <i className="icon">💬</i>
+              <FaCommentDots className="icon" />
             </div>
             <h3>Your Chat</h3>
             <p>Direct access to freelancers who share your vision</p>
@@ -78,20 +90,17 @@ const HomePage = () => {
           </h2>
         </section>
 
-        <section className="newsletter">
+        <section className="newsletter"> 
           <div className="newsletter-content">
             <h3>
-              Get valuable <span className="highlight">strategy, culture and brand</span> insights straight to your
-              inbox
+              Stay Updated with <span className="highlight">Lancer AI</span> – Your Chat Assistant for Market Trends & Insights
             </h3>
             <p>
-              By signing up to receive emails from Matrix, you agree to our Privacy Policy. We treat your info
-              responsibly.
+              Get the latest freelancer trends, industry updates, and valuable insights on skills in demand.  
+              Lancer AI keeps you informed so you can stay ahead in the freelance world.  
+              Chat now and explore what's trending!
             </p>
-            <div className="email-signup">
-              <input type="email" placeholder="Your email address here" />
-              <button className="subscribe-btn" onClick={() => handleNavigation("/chatbot")}>Chat Now</button>
-            </div>
+            <button className="subscribe-btn" onClick={() => handleNavigation("/chatbot")}>Chat with Lancer AI</button>
           </div>
         </section>
 
@@ -107,14 +116,11 @@ const HomePage = () => {
             <p>Mevin Manuel</p>
             <p>Alphonsa Maria</p>
             <p>R RBalagopal</p>
-
           </div>
         </footer>
       </main>
-      </div>
-   
-  )
-}
+    </div>
+  );
+};
 
-export default HomePage
-
+export default HomePage;

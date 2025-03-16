@@ -78,6 +78,7 @@ const Chatbot = () => {
         ))}
         {loading && <div className="message bot">Typing...</div>}
       </div>
+      
 {/* Prevents default form submission & ensures side-by-side layout */}
 <form className="chat-form" onSubmit={handleSend}>
   <div className="chat-input-container">

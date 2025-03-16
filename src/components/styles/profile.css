@@ -5,9 +5,62 @@
   --glow-green: rgba(158, 255, 0, 0.3);
 }
 
+/* Animate the gradient */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 50% 30%;
+  }
+  50% {
+    background-position: 100% 70%;
+  }
+  75% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Background animation effect */
+.bg-animationss {
+  position: fixed; /* Changed from absolute to fixed */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(
+      circle at 30% 30%,
+      rgba(0, 11, 3, 0.6),
+      transparent
+    ),
+    radial-gradient(circle at 70% 70%, rgba(207, 255, 17, 0.28), transparent),
+    radial-gradient(circle at 50% 50%, rgba(224, 255, 137, 0.44), transparent),
+    linear-gradient(to bottom, rgba(0, 50, 0, 0.5), transparent);
+  background-size: 300% 300%;
+  animation: gradientShift 5s infinite alternate ease-in-out;
+  z-index: 0; /* Ensure it's behind everything */
+  opacity: 1;
+  filter: blur(20px);
+}
+
+/* Optional: Adding a noise effect for texture */
+.bg-noisess {
+  position: fixed; /* Changed to fixed */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url("https://www.transparenttextures.com/patterns/diagmonds.png");
+  opacity: 0.9; /* Adjust opacity as needed */
+  z-index: 0; /* Ensure it is behind the content */
+}
+
 .profile-page-wrapper {
   min-height: 100vh;
-  background-color: var(--dark-bg);
+  background-color: rgb(66, 73, 56);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,10 +79,10 @@
 }
 
 .profile-card {
-  background-color: var(--card-bg);
+  background-color: rgba(19, 26, 10, 0.8);
   border-radius: 10px;
   padding: 40px 30px;
-  box-shadow: 0 5px 15px var(--glow-green);
+  box-shadow: 0 5px 10px var(--glow-green);
   backdrop-filter: blur(5px);
 }
 .back-button {
@@ -49,7 +102,7 @@
 }
 
 .back-button:hover {
-  color: #aaffaa; /* Lighter green on hover */
+  color: rgb(66, 83, 24); /* Lighter green on hover */
 }
 
 .profile-photo-section {
@@ -157,7 +210,7 @@
 }
 
 .social-icon:hover {
-  color: #aaffaa;
+  color: rgb(116, 138, 72);
   transform: scale(1.1);
 }
 

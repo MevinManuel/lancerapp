@@ -22,6 +22,8 @@ const ProfilePage = () => {
 
   return (
     <div className="profile-page-wrapper">
+        <div className="bg-animationss"></div>
+        <div className="bg-noisess"></div>
       <div className="profile-page-container">
         {/* Back Button */}
         <button className="back-button" onClick={handleBackClick}>
