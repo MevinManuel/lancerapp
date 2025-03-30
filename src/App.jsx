@@ -11,6 +11,7 @@ import Chat from './components/chat.jsx';
 import ProfileEdit from './components/profileedit.jsx'; // Ensure the import is correct
 import Profile from './components/profile.jsx'; // Ensure the import is correct
 import Chatbot from './components/chatbot.jsx';
+import Jobform from './components/jobform.jsx';
 
 
 
@@ -29,6 +30,8 @@ function App() {
         <Route path="/chat" element={<Chat />} /> {/* Profile Page */}
         <Route path="/Profile" element={<Profile />} /> {/* Profile Page */}
         <Route path="/Chatbot" element={<Chatbot />} /> {/* Profile Page */}
+        <Route path="/jobform" element={<Jobform />} /> {/* Profile Page */}
+
 
       </Routes>
     </Router>

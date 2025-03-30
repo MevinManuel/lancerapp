@@ -1,62 +1,83 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./styles/JobListing.css";
 
 const JobListing = () => {
-  return (
-    
-    <div className="container">
-          <div className="bg-animation"></div>
-          <div className="bg-noise"></div>
-      <h1 className="header">Explore Opportunities</h1>
-      <button className="post-job-button">POST A JOB +</button>
+  const navigate = useNavigate();
+  const [jobs, setJobs] = useState([]); // State to store job listings
+  const [loading, setLoading] = useState(true);
 
+  const fetchJobs = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/jobs"); // Fetch job listings from backend
+      const data = await response.json();
+      if (response.ok) {
+        setJobs(data.jobs.reverse()); // Ensure newest jobs appear at the top
+      } else {
+        console.error("Failed to fetch jobs:", data.message);
+      }
+    } catch (error) {
+      console.error("Error fetching jobs:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchJobs(); // Fetch jobs when component mounts
+
+    // Polling every 10 seconds to check for new jobs
+    const interval = setInterval(() => {
+      fetchJobs();
+    }, 10000); // 10 seconds interval
+
+    return () => clearInterval(interval); // Cleanup interval on unmount
+  }, []);
+
+  const handlePostJobClick = () => {
+    navigate("/jobform"); // Navigate to JobForm page
+  };
+
+  return (
+    <div className="container">
+     <div className="bg-animation"></div>
+      <div className="bg-noise"></div>
+    <h1 className="header">Explore Opportunities</h1>
+   
+      {/* Button to navigate to JobForm page */}
+      <button className="post-job-button" onClick={handlePostJobClick}>
+        POST A JOB +
+      </button>
 
       <div className="content">
-        
-        <div className="card-list">
-          <div className="job-card">
-            <h2 className="card-title">Landing Page Design</h2>
-            <p className="card-location">Kochi, Kerala, India</p>
-            <p className="card-time">Full-time</p>
-            <div className="skill-tags">
-              <span className="skill-tag">UI Design</span>
-              <span className="skill-tag">Research</span>
-              <span className="skill-tag">Branding</span>
-            </div>
-            <div className="description-box">
-              We're seeking a skilled UI designer to create a captivating landing page for our [project/initiative name]. If you have a keen eye for design and expertise in crafting user-centered experiences, we'd love to hear from you!
-              <br /><br />
-              Responsibilities:
-              <br />
-              • Design visually appealing and intuitive landing pages.
-              <br />
-              • Collaborate with our team to understand project goals and requirements...
-            </div>
+        {loading ? (
+          <p>Loading jobs...</p>
+        ) : jobs.length === 0 ? (
+          <p>No job listings available.</p>
+        ) : (
+          <div className="card-list">
+            {jobs.map((job) => (
+              <div key={job.id} className="job-card">
+                {/* Title & Contact Button in a Flex Container */}
+                <div className="card-header">
+                  <h2 className="card-title">{job.title}</h2>
+                  <button className="contact-button">Contact &nbsp; →</button>
+                </div>
+
+                <p className="card-location">{job.location}</p>
+                <div className="skill-tags">
+                  {job.skills &&
+                    JSON.parse(job.skills).map((skill, index) => (
+                      <span key={index} className="skill-tag">
+                        {skill}
+                      </span>
+                    ))}
+                </div>
+                <div className="description-box">{job.description}</div>
+              </div>
+            ))}
           </div>
-          {/* Add more job cards here */}
-          <div className="job-card">
-            <h2 className="card-title">Mobile App Design</h2>
-            <p className="card-location">Remote</p>
-            <p className="card-time">Part-time</p>
-            <div className="skill-tags">
-              <span className="skill-tag">UX Design</span>
-              <span className="skill-tag">Prototyping</span>
-              <span className="skill-tag">Usability Testing</span>
-            </div>
-            <div className="description-box">
-              We are looking for a talented UX designer to create intuitive and engaging mobile app experiences. You will be responsible for conducting user research, creating wireframes and prototypes, and ensuring the usability of our app.
-              <br /><br />
-              Responsibilities:
-              <br />
-              • Conduct user research and analysis.
-              <br />
-              • Create wireframes and prototypes.
-              <br />
-              • Conduct usability testing and iterate on designs.
-            </div>
-          </div>
-          {/* ... more cards */}
-        </div>
+        )}
       </div>
     </div>
   );

@@ -176,6 +176,22 @@ body {
   gap: 1rem;
 }
 
+.news-btn {
+  color: white; /* Green text */
+  background: transparent; /* No background */
+  border: 2px solid #b7ff00; /* Green border */
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.news-btn:hover {
+  color: #b7ff00; /* Black text on hover */
+  box-shadow: 0 0 10px #b7ff00; /* Green glow effect */
+}
+
 .profile-btn {
   background-color: var(--neon-green);
   color: black;

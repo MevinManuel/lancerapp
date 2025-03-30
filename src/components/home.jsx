@@ -29,6 +29,9 @@ const HomePage = () => {
       <nav className="navbar">
         <div className="logo"></div>
         <div className="nav-right">
+          {/* News Button */}
+          <button className="news-btn" onClick={() => handleNavigation("/news")}> News </button>
+          {/* Profile Button */}
           <button className="profile-btn" onClick={() => handleNavigation("/profile")}> Profile </button>
         </div>
       </nav>
@@ -115,7 +118,7 @@ const HomePage = () => {
             <h4>Developed By</h4>
             <p>Mevin Manuel</p>
             <p>Alphonsa Maria</p>
-            <p>R RBalagopal</p>
+            <p>R Balagopal</p>
           </div>
         </footer>
       </main>

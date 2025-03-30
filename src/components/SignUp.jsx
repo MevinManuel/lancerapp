@@ -1,75 +1,104 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../style.css";
 
 function SignUp() {
-  const usernameRef = useRef();
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const usernameRef = useRef(null);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
   const [message, setMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);  // Tracks form submission state
+  const [isLoading, setIsLoading] = useState(false); // Track form submission state
   const navigate = useNavigate();
 
-  // Validates the form before submission
+  // Validate the form before submission
   const validateForm = (username, email, password) => {
-    return (
-      username.length >= 3 &&
-      /\S+@\S+\.\S+/.test(email) &&
-      password.length >= 6
-    );
+    if (username.length < 3) {
+      setMessage("Username must be at least 3 characters long.");
+      return false;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setMessage("Please enter a valid email address.");
+      return false;
+    }
+    if (password.length < 6) {
+      setMessage("Password must be at least 6 characters long.");
+      return false;
+    }
+    return true;
   };
 
-  // Handles form submission
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    const username = usernameRef.current.value.trim();
-    const email = emailRef.current.value.trim();
-    const password = passwordRef.current.value.trim();
+  
+    const username = usernameRef.current?.value.trim() || "";
+    const email = emailRef.current?.value.trim() || "";
+    const password = passwordRef.current?.value.trim() || "";
   
     if (!validateForm(username, email, password)) {
-      setMessage("Please fill in all fields correctly.");
       return;
     }
-
-    setIsLoading(true);  // Disable button & show loading state
-    setMessage("");  // Clear previous messages
-
+  
+    setIsLoading(true);
+    setMessage("");
+  
     const formData = { username, email, password };
-
+  
     try {
-      console.log("Sending request with:", formData);
-      const response = await axios.post("http://localhost:5000/register", formData, {
-        headers: { "Content-Type": "application/json" },
-      });
-
-      console.log("Response received:", response.data);
-
-      if (response.data.token) {
-        localStorage.setItem("token", response.data.token);
-
-        // Clear form fields
-        usernameRef.current.value = "";
-        emailRef.current.value = "";
-        passwordRef.current.value = "";
-
-        setMessage("Signup successful! Redirecting...");
-
-        // Navigate to Home page after a short delay
-        setTimeout(() => {
-          navigate("/home");
-        }, 1000); 
+      console.log("🚀 Sending request with:", formData);
+  
+      const response = await axios.post(
+        "http://localhost:5000/register",
+        formData,
+        { headers: { "Content-Type": "application/json" } }
+      );
+  
+      console.log("✅ Response received:", response);
+  
+      // Debugging: Log the entire response
+      console.log("Response data:", response.data);
+  
+      // Check if the response contains the token
+      if (response.data && response.data.token) {
+        console.log("✅ Token received:", response.data.token);
+  
+        // Store token in localStorage
+        try {
+          localStorage.setItem("token", response.data.token);
+        } catch (error) {
+          console.error("❌ LocalStorage error:", error);
+        }
+  
+        // Clear input fields
+        if (usernameRef.current) usernameRef.current.value = "";
+        if (emailRef.current) emailRef.current.value = "";
+        if (passwordRef.current) passwordRef.current.value = "";
+  
+        setMessage("🎉 Signup successful! Redirecting to profile edit...");
+  
+        // Navigate to profile edit page
+        navigate("/profileedit", { replace: true });
       } else {
+        console.log("❌ No token in response. Signup failed.");
         setMessage("Signup failed. Please try again.");
       }
     } catch (error) {
-      console.error("Signup error:", error);
-      setMessage(error.response?.data?.error || "Error signing up. Please try again.");
+      console.error("❌ Signup error:", error);
+  
+      // Log full error response
+      if (error.response) {
+        console.error("Error response:", error.response.data);
+      }
+  
+      setMessage(
+        error.response?.data?.error || "Error signing up. Please try again."
+      );
     } finally {
-      setIsLoading(false); // Re-enable button
+      setIsLoading(false);
     }
   };
+  
 
   return (
     <div className="signup-page">

@@ -74,7 +74,6 @@
 /* Profile Container */
 .profile-container {
   opacity: 0.8; /* Adjust opacity as needed */
-
   display: flex;
   flex-direction: column;
   align-items: center; /* Ensures content is centered */
@@ -83,21 +82,21 @@
   padding: 20px;
   background: var(--dark-bg);
   border-radius: 15px;
-  box-shadow: 0px 0px 20px var(--glow-green);
+  box-shadow: 0px 0px 10px var(--glow-green);
   z-index: 1; /* Ensure it is above the background */
 }
 
-/* Profile Photo */
-.profile-photo {
+/* Profile Photo Section */
+.profile-photos {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
 }
 
-.photo-box {
-  width: 100px;
-  height: 100px;
+.photo-boxs {
+  width: 120px; /* Slightly increased for better fit */
+  height: 120px;
   background: var(--card-bg);
   border: 2px dashed var(--neon-green);
   color: var(--neon-green);
@@ -105,30 +104,48 @@
   justify-content: center;
   align-items: center;
   font-size: 24px;
+  border-radius: 50%; /* Makes the box circular */
+  overflow: hidden; /* Ensures image does not overflow */
+  position: relative;
+}
+
+/* Uploaded Profile Picture */
+.profile-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image fills the box while maintaining aspect ratio */
   border-radius: 50%;
 }
 
+/* Hide Default File Input */
+.upload-input {
+  display: none;
+}
+
+/* Upload Button */
 .upload-btn {
-  background: none;
-  color: white;
-  border: 1px solid var(--neon-green);
-  padding: 5px 10px;
-  border-radius: 5px;
+  padding: 8px 16px;
+  background-color: var(--neon-green);
+  color: var(--dark-bg);
+  border: none;
   cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: 0.3s ease-in-out;
 }
 
 .upload-btn:hover {
-  background: var(--neon-green);
-  color: var(--dark-bg);
+  background-color: var(--glow-green);
+  box-shadow: 0px 0px 8px var(--neon-green);
 }
 
 /* Card Styling */
 .card {
   margin: 20px auto; /* Adds spacing between cards */
   padding: 20px;
-  background: var(--card-bg);
+  background: rgba(70, 91, 19, 0.55);
   border-radius: 10px;
-  box-shadow: 0px 0px 10px var(--glow-green);
   text-align: center;
   width: 90%; /* Ensures the card is not too wide */
 }

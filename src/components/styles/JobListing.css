@@ -161,10 +161,50 @@
   box-shadow: 0 0 30px rgba(178, 216, 112, 0.2);
   transform: translateY(-5px);
 }
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
 
 .card-title {
-  font-size: 1.5em;
-  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  flex-grow: 1; /* Pushes the title to the left */
+}
+
+.contact-button {
+  background: linear-gradient(
+    135deg,
+    rgba(174, 253, 77, 0.29),
+    rgba(40, 81, 30, 0.35)
+  );
+  border: none;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.contact-button:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(30, 55, 6, 0.3),
+    rgba(110, 226, 22, 0.33)
+  );
+  transform: scale(1.05);
+}
+
+.contact-button:active {
+  transform: scale(0.95);
 }
 
 .card-location,
@@ -202,4 +242,18 @@
   min-height: 100%;
   box-sizing: border-box;
   transition: background-color 0.3s ease;
+}
+
+.back-button {
+  color: white;
+  font-size: 18px;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+  position: fixed; /* Keeps it fixed in place */
+  top: 10px; /* Distance from the top */
+  left: 10px; /* Distance from the left */
+  width: auto; /* Adjust width as needed */
 }
