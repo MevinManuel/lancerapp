@@ -1,0 +1,209 @@
+.admin-container {
+  display: flex;
+  height: 100vh;
+  background-color: #121212;
+  color: #fff;
+  width: 100vw;
+}
+
+/* Sidebar */
+.sidebar {
+  flex: 0.2; /* Takes 20% of the width */
+  background: #1a1a1a;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.nav-links {
+  list-style: none;
+  padding: 0;
+}
+
+.nav-links li {
+  padding: 14px;
+  cursor: pointer;
+  border-bottom: 1px solid #333;
+  transition: background 0.3s ease-in-out, border-radius 0.3s ease-in-out;
+  border-radius: 8px; /* Adds rounded corners */
+  margin-bottom: 8px; /* Adds spacing between items */
+  text-align: center;
+}
+
+.nav-links li:hover,
+.nav-links li.active {
+  background-color: rgb(167, 219, 25);
+  border-radius: 8px; /* Ensures corners remain rounded */
+}
+/* Main content */
+.main-content {
+  flex: 0.8; /* Takes 80% of the width */
+  padding: 30px;
+  overflow-y: auto;
+  background: url("public/images/onboardbg.png") no-repeat center center; /* Background image */
+  background-size: cover; /* Ensures it covers the area */
+}
+
+.dashboard-title {
+  font-size: 26px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* List container */
+.list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Added spacing */
+  padding-bottom: 10px;
+}
+
+/* User & Job post cards */
+.list-card {
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  transition: transform 0.2s ease-in-out;
+}
+
+.list-card:hover {
+  transform: scale(1.02);
+}
+
+.user-photo {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.list-info {
+  flex-grow: 1;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: red;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.user-count-box {
+  background-color: rgba(35, 49, 16, 0.3); /* Green background */
+  color: white; /* White text */
+  padding: 45px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 55px;
+  transition: all 0.3s ease-in-out;
+}
+
+.user-count-box:hover {
+  transform: translateY(-5px); /* Moves it up slightly */
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3); /* Adds shadow for a pop-up effect */
+}
+
+.announcement-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Adds spacing between elements */
+  width: 100%;
+  margin-top: 40px;
+}
+
+.announcement-input {
+  width: 100%;
+  padding: 20px;
+  border: 1px solidrgb(109, 193, 31);
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.announcement-input[type="text"] {
+  height: 40px;
+}
+
+.announcement-input[type="textarea"],
+.announcement-input textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.post-btn {
+  width: 100px;
+  margin-top: 10px;
+  padding: 12px;
+  background: rgb(176, 232, 35);
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.post-btn:hover {
+  background: darkgreen;
+}
+
+/* Delete Confirmation Popup */
+.delete-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #222;
+  padding: 25px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.confirm-btn,
+.cancel-btn {
+  padding: 12px 15px;
+  margin: 8px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+}
+
+.confirm-btn {
+  background: red;
+  color: #fff;
+}
+
+.cancel-btn {
+  background: gray;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .admin-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .main-content {
+    flex: 2;
+  }
+}

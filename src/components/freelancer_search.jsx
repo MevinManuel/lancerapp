@@ -1,14 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './styles/freelancer_search.css';
 
-const profiles = [
-  { id: 1, name: 'John Doe', age: 25, bio: 'Loves hiking and photography', phone: '123-456-7890', email: 'john@example.com', resume: 'resume.pdf', skills: ['React', 'CSS', 'JavaScript'], about: 'Passionate UI designer with a knack for aesthetics.', rating: 4.5, location: 'New York', designation: 'UI Designer', image: 'https://via.placeholder.com/150' },
-  { id: 2, name: 'Jane Smith', age: 28, bio: 'Avid traveler and foodie', phone: '987-654-3210', email: 'jane@example.com', resume: 'resume.pdf', skills: ['Python', 'Django', 'Machine Learning'], about: 'Software engineer with a love for AI and automation.', rating: 4.7, location: 'Los Angeles', designation: 'Software Engineer', image: 'https://via.placeholder.com/150' },
-  { id: 3, name: 'Michael Brown', age: 30, bio: 'Tech enthusiast and gamer', phone: '555-666-7777', email: 'michael@example.com', resume: 'resume.pdf', skills: ['Product Management', 'Agile', 'Scrum'], about: 'Experienced product manager specializing in user experience.', rating: 4.6, location: 'Chicago', designation: 'Product Manager', image: 'https://via.placeholder.com/150' }
-];
-
 const FreelancerSearch = () => {
+  const [profiles, setProfiles] = useState([]); // Store profiles from backend
   const [index, setIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProfiles = async () => {
+      try {
+        const token = localStorage.getItem('token'); // Get user token
+
+        const response = await fetch('http://localhost:5000/get-profile', {
+          method: 'GET',
+          headers: {
+           'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch profiles');
+        }
+
+        const data = await response.json();
+        setProfiles(Array.isArray(data) ? data : [data]); // Ensure data is an array
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchProfiles();
+  }, []);
 
   const handleGoBack = () => {
     if (index > 0) {
@@ -22,40 +48,77 @@ const FreelancerSearch = () => {
     }
   };
 
+  
+
+  if (loading) return <p>Loading profiles...</p>;
+  if (error) return <p>Error: {error}</p>;
+  if (profiles.length === 0) return <p>No profiles found.</p>;
+
+  const currentProfile = profiles[index];
+
   return (
     <div className="main-container">
       <div className="container">
         <div className="card-container">
           <div className="card">
-            <img className="profile-image" src={profiles[index].image} alt={profiles[index].name} />
-            <h2>{profiles[index].name}, {profiles[index].age}</h2>
+            <img className="profile-image" src={currentProfile.photo} alt={currentProfile.username} />
+            <h2>{currentProfile.username}</h2>
             <div className="info-container">
-              <div className="info-box">⭐ {profiles[index].rating}</div>
-              <div className="info-box">📍 {profiles[index].location}</div>
+              <div className="info-box">📍 {currentProfile.city || 'Unknown'}</div>
             </div>
-            <h3 className="designation">{profiles[index].designation}</h3>
-            <button className="chat-button">Chat</button>
+            <h3 className="designation">{currentProfile.role || 'Freelancer'}</h3>
+            {/* LinkedIn Profile Link */}
+            {currentProfile.social_links?.linkedin && (
+              <a 
+                href={currentProfile.social_links.linkedin} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="linkedin-link"
+              >
+                🔗 View LinkedIn
+              </a>
+            )}
+            
           </div>
           <div className="button-container">
-            <button onClick={handleGoBack}>Back</button>
-            <button onClick={handleGoForward}>Forward</button>
+            <button onClick={handleGoBack} disabled={index === 0}>Back</button>
+            <button onClick={handleGoForward} disabled={index === profiles.length - 1}>Forward</button>
           </div>
         </div>
       </div>
+
+      {/* Bio Container */}
       <div className="bio-container">
-        <h2>{profiles[index].name}</h2>
+        <h2>{currentProfile.username}</h2>
         <hr />
-        <p><strong>Phone:</strong> {profiles[index].phone}</p>
-        <p><strong>Email:</strong> {profiles[index].email}</p>
-        <p><strong>Resume:</strong> <a href={profiles[index].resume}>Download</a></p>
-        <h3>Skills</h3>
+        <p><strong>Mobile:</strong> {currentProfile.mobile || 'N/A'}</p>
+        <p><strong>Email:</strong> {currentProfile.email}</p>
+        {currentProfile.resume && (
+          <p><strong>Resume:</strong> <a href={`http://localhost:5000/${currentProfile.resume}`} target="_blank" rel="noopener noreferrer">Download</a></p>
+        )}
+        
+        {/* Skills Section */}
+        <h3>Interests</h3>
         <div className="skill-container">
-          {profiles[index].skills.map(skill => (
-            <div className="skill-box" key={skill}>{skill}</div>
-          ))}
+          {currentProfile.industry_interest && currentProfile.industry_interest.length > 0 ? (
+            currentProfile.industry_interest.map((skill, idx) => <div className="skill-box" key={idx}>{skill}</div>)
+          ) : (
+            <p>No interests listed.</p>
+          )}
         </div>
+
+        {/* Tools Section */}
+        <h3>Tools</h3>
+        <div className="skill-container">
+          {currentProfile.tools && currentProfile.tools.length > 0 ? (
+            currentProfile.tools.map((tool, idx) => <div className="skill-box" key={idx}>{tool}</div>)
+          ) : (
+            <p>No tools listed.</p>
+          )}
+        </div>
+
         <h3>About Me</h3>
-        <p>{profiles[index].about}</p>
+        <p>{currentProfile.bio || 'No bio available'}</p>
       </div>
     </div>
   );

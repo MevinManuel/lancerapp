@@ -1,0 +1,64 @@
+.news-container {
+  padding: 70px;
+  background-color: rgb(22, 27, 5);
+  color: white;
+  min-height: 100vh;
+}
+
+.back-button {
+  background: rgb(128, 185, 29);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  position: absolute; /* Make sure it's positioned */
+  top: 20px; /* Adjust as needed */
+  left: 100px; /* Adjust as needed */
+  z-index: 10; /* Ensures it's above other elements */
+}
+.news-content {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.news-title {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.news-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.news-card {
+  background: rgba(94, 125, 50, 0.23);
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease-in-out;
+}
+
+.news-card:hover {
+  transform: translateY(-5px);
+}
+
+.news-date {
+  font-size: 12px;
+  color: #bbb;
+  margin-top: 10px;
+  display: block;
+}
+
+.loading-text,
+.no-news {
+  text-align: center;
+  font-size: 18px;
+  color: gray;
+}

@@ -19,16 +19,18 @@ body {
 .main-container {
   display: flex;
   justify-content: space-between;
+  align-items: stretch; /* Makes child elements stretch to fit height */
   width: 100vw;
-  height: 100vh;
+  height: 100vh; /* Ensures full viewport height */
   padding: 20px;
   box-sizing: border-box;
+  overflow: hidden; /* Prevents scrolling */
 }
 
 /* Main container layout */
 .container {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   width: 70%;
   height: 100%;
@@ -37,6 +39,11 @@ body {
   gap: 2rem;
   max-width: 1400px;
   margin: 0 auto;
+
+  /* Background Image */
+  background: url("public/images/onboardbg.png") no-repeat center center;
+  background-size: cover; /* Ensures the image covers the entire container */
+  border-radius: 16px; /* Optional: If you want rounded corners */
 }
 
 /* Card container styles */
@@ -52,7 +59,7 @@ body {
   background-color: #121212;
   border-radius: 16px;
   padding: 2rem;
-  box-shadow: 0 0 20px rgba(0, 255, 128, 0.1);
+  box-shadow: 0 0 20px rgba(26, 34, 10, 0.82);
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -107,8 +114,8 @@ body {
 }
 
 .chat-button {
-  background-color: rgba(0, 255, 128, 0.2);
-  color: rgba(0, 255, 128, 1);
+  background-color: rgba(25, 31, 13, 0.2);
+  color: rgb(187, 255, 0);
   border: none;
   padding: 0.75rem 2rem;
   border-radius: 8px;
@@ -122,14 +129,14 @@ body {
 }
 
 .chat-button:hover {
-  background-color: rgba(0, 255, 128, 0.3);
+  background-color: rgba(25, 31, 13, 0.2);
   box-shadow: 0 0 15px rgba(0, 255, 128, 0.4);
 }
 
 .button-container {
   display: flex;
   gap: 1rem;
-  margin-top: 1.5rem;
+  margin-top: rem;
   width: 100%;
 }
 
@@ -153,19 +160,15 @@ body {
 /* Bio container styles */
 .bio-container {
   width: 30%;
-  height: 100%;
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
-  margin-left: 20px;
-  box-sizing: border-box;
-  background-color: #121212;
-  border-radius: 16px;
+  max-height: 95vh; /* Restricts height to prevent overflow */
+  background: #121212;
   padding: 2rem;
+  border-radius: 16px;
   box-shadow: 0 0 20px rgba(0, 255, 128, 0.1);
   border: 1px solid rgba(0, 255, 128, 0.1);
-  height: fit-content;
+  overflow-y: auto; /* Enables vertical scrolling */
+  margin-left: 20px;
+  box-sizing: border-box;
 }
 
 .bio-container h2 {
@@ -201,6 +204,26 @@ body {
 .bio-container a:hover {
   color: rgba(0, 255, 128, 1);
   text-decoration: underline;
+}
+.linkedin-link {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 5px 4px;
+  background: transparent;
+  color: rgb(166, 255, 0); /* Green color */
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  text-align: center;
+  transition: 0.3s ease-in-out;
+  border: 1px solid rgba(0, 255, 128, 0.5); /* Green border */
+  box-shadow: 0 0 10px rgba(0, 255, 128, 0.2); /* Green glow */
+}
+
+.linkedin-link:hover {
+  color: rgb(143, 223, 13) !important; /* Ensures the text stays green */
+  box-shadow: 0 0 15px rgba(56, 124, 11, 0.5); /* Stronger Green glow */
+  transform: scale(1.05);
 }
 
 .skill-container {

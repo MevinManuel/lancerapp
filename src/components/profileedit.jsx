@@ -62,16 +62,13 @@ export default function ProfileEdit() {
   const handlePhotoUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfile((prevProfile) => ({
-          ...prevProfile,
-          profilePhoto: reader.result
-        }));
-      };
-      reader.readAsDataURL(file);
+      setProfile((prevProfile) => ({
+        ...prevProfile,
+        profilePhoto: file, // ✅ Store file object instead of Base64
+      }));
     }
   };
+
 
   // ✅ Handle Resume Upload (PDF)
   const handleResumeUpload = (e) => {
@@ -93,27 +90,26 @@ export default function ProfileEdit() {
       const token = localStorage.getItem('token');
       const formData = new FormData();
   
-      formData.append("username", profile.username); // ✅ Added username
       formData.append("mobile", profile.mobile);
       formData.append("role", profile.role);
       formData.append("bio", profile.bio);
       formData.append("city", profile.city);
-      formData.append("industry_interest", JSON.stringify(profile.industryInterests)); // ✅ Fixed naming
-      formData.append("tools", JSON.stringify(profile.tools));
+      formData.append("industry_interest", JSON.stringify(profile.industryInterests)); // ✅ Convert to JSON
+      formData.append("tools", JSON.stringify(profile.tools)); // ✅ Convert to JSON
       formData.append("social_links", JSON.stringify(profile.socialLinks));
   
       if (profile.profilePhoto) {
-        formData.append("photo", profile.profilePhoto);
+        formData.append("photo", profile.profilePhoto); // ✅ Send actual file, not Base64
       }
   
       if (profile.resume) {
-        formData.append("resume", profile.resume);
+        formData.append("resume", profile.resume); // ✅ Send actual file
       }
   
       const response = await fetch('http://localhost:5000/update-profile', {
         method: 'PUT',
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${token}` // ✅ No need for Content-Type with FormData
         },
         body: formData
       });
@@ -126,11 +122,11 @@ export default function ProfileEdit() {
       } else {
         console.error("Error updating profile:", data?.message || "Unknown error");
       }
-  
     } catch (error) {
       console.error("Error connecting to server:", error);
     }
   };
+  
   
   
 
@@ -140,11 +136,13 @@ export default function ProfileEdit() {
       <div className="bg-noises"></div>
       <div className="profile-container">
         <div className="profile-photos">
-          <div className="photo-boxs">
-            {profile.profilePhoto ? (
-              <img src={profile.profilePhoto} alt="Profile" className="profile-preview" />
-            ) : "+"}
-          </div>
+        <div className="photo-boxs">
+  {profile.profilePhoto ? (
+    <img src={profile.profilePhoto} alt="Profile" className="profile-preview" />
+  ) : (
+    "+"
+  )}
+</div>
           <input type="file" accept="image/*" onChange={handlePhotoUpload} className="upload-input" />
           <button className="upload-btn" onClick={() => document.querySelector('.upload-input').click()}>
             Upload Photo

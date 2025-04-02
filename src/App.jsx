@@ -12,6 +12,8 @@ import ProfileEdit from './components/profileedit.jsx'; // Ensure the import is 
 import Profile from './components/profile.jsx'; // Ensure the import is correct
 import Chatbot from './components/chatbot.jsx';
 import Jobform from './components/jobform.jsx';
+import Admin from './components/Admin.jsx';
+import News from './components/News.jsx';
 
 
 
@@ -19,8 +21,8 @@ function App() {
   return (
     <Router basename="/lancerapp">
       <Routes>
-        <Route path="/" element={<SplashScreen />} /> {/* Splash Screen */}
-        <Route path="/Onboard" element={<OnboardScreen />} /> {/* Onboard Screen */}
+      <Route path="/" element={<SplashScreen />} /> {/* Splash Screen */}
+      <Route path="/Onboard" element={<OnboardScreen />} /> {/* Onboard Screen */}
         <Route path="/login" element={<LoginPage />} /> {/* Login Page */}
         <Route path="/SignUp" element={<SignUp />} /> {/* Login Page */}
         <Route path="/home" element={<Home />} /> {/* Login Page */}
@@ -31,6 +33,9 @@ function App() {
         <Route path="/Profile" element={<Profile />} /> {/* Profile Page */}
         <Route path="/Chatbot" element={<Chatbot />} /> {/* Profile Page */}
         <Route path="/jobform" element={<Jobform />} /> {/* Profile Page */}
+        <Route path="/Admin" element={<Admin />} /> {/* Profile Page */}
+        <Route path="/News" element={<News />} /> {/* Profile Page */}
+
 
 
       </Routes>
