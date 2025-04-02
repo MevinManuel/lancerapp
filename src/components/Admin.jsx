@@ -9,8 +9,8 @@ const Admin = () => {
   const [userCount, setUserCount] = useState(0);
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [deleteJobId, setDeleteJobId] = useState(null);
-  const [announcementTitle, setAnnouncementTitle] = useState(""); // New state for title
-  const [announcementContent, setAnnouncementContent] = useState(""); // New state for content
+  const [announcementTitle, setAnnouncementTitle] = useState("");
+  const [announcementContent, setAnnouncementContent] = useState("");
 
   const token = localStorage.getItem("adminToken");
 
@@ -43,7 +43,6 @@ const Admin = () => {
         setUsers(response.data);
       } catch (error) {
         console.error("Error fetching user profiles:", error);
-        
       }
     };
     fetchUsers();
@@ -97,9 +96,9 @@ const Admin = () => {
         content: announcementContent,
       });
       console.log("Announcement posted:", response.data);
-      alert("Announcement posted successfully!");
-      setAnnouncementTitle(""); // Clear title
-      setAnnouncementContent(""); // Clear content
+      alert(response.data.message); // Show the backend message (e.g., includes email status)
+      setAnnouncementTitle("");
+      setAnnouncementContent("");
     } catch (error) {
       console.error("Error posting announcement:", error);
       if (error.response) {
@@ -114,38 +113,38 @@ const Admin = () => {
   const renderContent = () => {
     switch (selectedTab) {
       case "users":
-  return (
-    <div className="content-box">
-      <div className="user-count-box">
-        <h2>Total Users: {userCount !== null ? userCount : "Loading..."}</h2>
-      </div>
-      <div className="list-container">
-        {users.length > 0 ? (
-          users.map((user) => (
-            <div key={user.id} className="list-card">
-              <img src={user.photo} alt={user.username} className="user-photo" />
-              <div className="list-info">
-                <h3>{user.username}</h3>
-                <p>📞 {user.mobile}</p>
-                {user.social_links?.linkedin && (
-                  <a href={user.social_links.linkedin} target="_blank" rel="noopener noreferrer">
-                    🔗 LinkedIn
-                  </a>
-                )}
-                {user.resume && (
-                  <a href={`http://localhost:5000/${user.resume}`} download>
-                    📄 Download Resume
-                  </a>
-                )}
-              </div>
+        return (
+          <div className="content-box">
+            <div className="user-count-box">
+              <h2>Total Users: {userCount !== null ? userCount : "Loading..."}</h2>
             </div>
-          ))
-        ) : (
-          <p></p>
-        )}
-      </div>
-    </div>
-  );
+            <div className="list-container">
+              {users.length > 0 ? (
+                users.map((user) => (
+                  <div key={user.id} className="list-card">
+                    <img src={user.photo} alt={user.username} className="user-photo" />
+                    <div className="list-info">
+                      <h3>{user.username}</h3>
+                      <p>📞 {user.mobile}</p>
+                      {user.social_links?.linkedin && (
+                        <a href={user.social_links.linkedin} target="_blank" rel="noopener noreferrer">
+                          🔗 LinkedIn
+                        </a>
+                      )}
+                      {user.resume && (
+                        <a href={`http://localhost:5000/${user.resume}`} download>
+                          📄 Download Resume
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p></p>
+              )}
+            </div>
+          </div>
+        );
 
       case "jobposts":
         return (
@@ -171,30 +170,32 @@ const Admin = () => {
             </div>
           </div>
         );
-        case "announcements":
-          return (
-            <div className="content-box">
-              <h2>Post Updates/News</h2>
-              <div className="announcement-container">
-                <input
-                  type="text"
-                  value={announcementTitle}
-                  onChange={(e) => setAnnouncementTitle(e.target.value)}
-                  placeholder="Announcement Title"
-                  className="announcement-input"
-                />
-                <textarea
-                  value={announcementContent}
-                  onChange={(e) => setAnnouncementContent(e.target.value)}
-                  placeholder="Write your announcement here..."
-                  className="announcement-input"
-                />
-                <button className="post-btn" onClick={handlePostAnnouncement}>
-                  Post
-                </button>
-              </div>
+
+      case "announcements":
+        return (
+          <div className="content-box">
+            <h2>Post Updates/News</h2>
+            <div className="announcement-container">
+              <input
+                type="text"
+                value={announcementTitle}
+                onChange={(e) => setAnnouncementTitle(e.target.value)}
+                placeholder="Announcement Title"
+                className="announcement-input"
+              />
+              <textarea
+                value={announcementContent}
+                onChange={(e) => setAnnouncementContent(e.target.value)}
+                placeholder="Write your announcement here..."
+                className="announcement-input"
+              />
+              <button className="post-btn" onClick={handlePostAnnouncement}>
+                Post
+              </button>
             </div>
-          );
+          </div>
+        );
+
       default:
         return <div className="content-box">Select a section to manage.</div>;
     }
