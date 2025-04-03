@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './styles/freelancer_search.css';
 
 const FreelancerSearch = () => {
-  const [profiles, setProfiles] = useState([]); // Store profiles from backend
+  const [profiles, setProfiles] = useState([]);
   const [index, setIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -10,24 +10,29 @@ const FreelancerSearch = () => {
   useEffect(() => {
     const fetchProfiles = async () => {
       try {
-        const token = localStorage.getItem('token'); // Get user token
+        const token = localStorage.getItem('token');
+        if (!token) {
+          throw new Error('No authentication token found. Please log in.');
+        }
 
         const response = await fetch('http://localhost:5000/get-profile', {
           method: 'GET',
           headers: {
-           'Authorization': `Bearer ${token}`,
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
         });
 
         if (!response.ok) {
-          throw new Error('Failed to fetch profiles');
+          const errorText = await response.text();
+          throw new Error(`Failed to fetch profiles: ${response.status} - ${errorText}`);
         }
 
         const data = await response.json();
-        setProfiles(Array.isArray(data) ? data : [data]); // Ensure data is an array
+        setProfiles(Array.isArray(data) ? data : [data]);
         setLoading(false);
       } catch (err) {
+        console.error("Fetch error:", err);
         setError(err.message);
         setLoading(false);
       }
@@ -48,8 +53,6 @@ const FreelancerSearch = () => {
     }
   };
 
-  
-
   if (loading) return <p>Loading profiles...</p>;
   if (error) return <p>Error: {error}</p>;
   if (profiles.length === 0) return <p>No profiles found.</p>;
@@ -67,7 +70,6 @@ const FreelancerSearch = () => {
               <div className="info-box">📍 {currentProfile.city || 'Unknown'}</div>
             </div>
             <h3 className="designation">{currentProfile.role || 'Freelancer'}</h3>
-            {/* LinkedIn Profile Link */}
             {currentProfile.social_links?.linkedin && (
               <a 
                 href={currentProfile.social_links.linkedin} 
@@ -78,7 +80,6 @@ const FreelancerSearch = () => {
                 🔗 View LinkedIn
               </a>
             )}
-            
           </div>
           <div className="button-container">
             <button onClick={handleGoBack} disabled={index === 0}>Back</button>
@@ -87,7 +88,6 @@ const FreelancerSearch = () => {
         </div>
       </div>
 
-      {/* Bio Container */}
       <div className="bio-container">
         <h2>{currentProfile.username}</h2>
         <hr />
@@ -97,7 +97,6 @@ const FreelancerSearch = () => {
           <p><strong>Resume:</strong> <a href={`http://localhost:5000/${currentProfile.resume}`} target="_blank" rel="noopener noreferrer">Download</a></p>
         )}
         
-        {/* Skills Section */}
         <h3>Interests</h3>
         <div className="skill-container">
           {currentProfile.industry_interest && currentProfile.industry_interest.length > 0 ? (
@@ -107,7 +106,6 @@ const FreelancerSearch = () => {
           )}
         </div>
 
-        {/* Tools Section */}
         <h3>Tools</h3>
         <div className="skill-container">
           {currentProfile.tools && currentProfile.tools.length > 0 ? (

@@ -118,6 +118,7 @@ const Admin = () => {
             <div className="user-count-box">
               <h2>Total Users: {userCount !== null ? userCount : "Loading..."}</h2>
             </div>
+            <br></br>
             <div className="list-container">
               {users.length > 0 ? (
                 users.map((user) => (

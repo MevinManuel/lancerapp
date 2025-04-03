@@ -1,7 +1,12 @@
 .news-container {
   padding: 70px;
+  width: 100vw;
   background-color: rgb(22, 27, 5);
   color: white;
+  background-image: url("public/images/bg.png"); /* Add your image URL here */
+  background-size: cover; /* Cover the entire container */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat;
   min-height: 100vh;
 }
 

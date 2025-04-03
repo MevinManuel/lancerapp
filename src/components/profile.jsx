@@ -1,38 +1,50 @@
-import React, { useEffect, useState } from 'react';
-import './styles/profile.css';
-import { FaArrowLeft, FaInstagram, FaLinkedin } from 'react-icons/fa';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import "./styles/profile.css";
+import { FaArrowLeft, FaInstagram, FaLinkedin } from "react-icons/fa";
+import axios from "axios";
 
 const ProfilePage = () => {
   const [profileData, setProfileData] = useState(null);
+  const [acceptedJobs, setAcceptedJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchProfileData = async () => {
-      const token = localStorage.getItem('token');
+    const fetchData = async () => {
+      const token = localStorage.getItem("token");
       if (!token) {
-        setError('No token found. Please login again.');
+        setError("No token found. Please log in again.");
         setLoading(false);
         return;
       }
 
       try {
-        const response = await axios.get('/lancerapp/get-userprofile', {
+        // Fetch profile data
+        const profileResponse = await axios.get("http://localhost:5000/get-userprofile", {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         });
-        setProfileData(response.data);
+        setProfileData(profileResponse.data);
+
+        // Fetch accepted jobs
+        const jobsResponse = await axios.get("http://localhost:5000/accepted-jobs", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setAcceptedJobs(jobsResponse.data.acceptedJobs);
       } catch (error) {
-        setError('Failed to fetch profile data');
-        console.error('Error fetching profile:', error);
+        setError(
+          error.response?.data?.message || "Failed to fetch data. Please try again."
+        );
+        console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchProfileData();
+    fetchData();
   }, []);
 
   const handleBackClick = () => {
@@ -54,15 +66,15 @@ const ProfilePage = () => {
         <div className="profile-card">
           <div className="profile-photo-section">
             <img
-              src={profileData.photo || 'https://via.placeholder.com/150'}
-              alt={`${profileData.full_name || profileData.username}'s profile`}
-              className="profile-photo"
+              className="profile-image"
+              src={profileData.photo || "https://via.placeholder.com/150"}
+              alt={profileData.username}
             />
           </div>
 
           <div className="personal-info">
-            <h2>{profileData.full_name || profileData.username}</h2>
-            <p>{profileData.mobile || 'Not provided'}</p>
+            <h2>{profileData.username}</h2>
+            <p>{profileData.mobile || "Not provided"}</p>
             <p>
               <a href={`mailto:${profileData.email}`}>{profileData.email}</a>
             </p>
@@ -70,18 +82,21 @@ const ProfilePage = () => {
 
           <div className="bio-section">
             <h3>About Me</h3>
-            <p>{profileData.bio || 'No bio available'}</p>
+            <p>{profileData.bio || "No bio available"}</p>
           </div>
 
           <div className="interests-section">
             <h3>Interests</h3>
             <div className="interests-list">
-              {profileData.industry_interest &&
+              {profileData.industry_interest && Array.isArray(profileData.industry_interest) ? (
                 profileData.industry_interest.map((interest, index) => (
                   <span key={index} className="interest-tag">
                     {interest}
                   </span>
-                ))}
+                ))
+              ) : (
+                <p>No interests listed</p>
+              )}
             </div>
           </div>
 
@@ -99,6 +114,22 @@ const ProfilePage = () => {
                 </a>
               )}
             </div>
+          </div>
+
+          {/* Accepted Jobs Section */}
+          <div className="accepted-jobs-section">
+            <h3>Accepted Jobs</h3>
+            {acceptedJobs.length === 0 ? (
+              <p>No jobs accepted yet.</p>
+            ) : (
+              <div className="card-list">
+                {acceptedJobs.map((job) => (
+                  <div key={job.id} className="job-card">
+                    <h4>{job.title}</h4>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

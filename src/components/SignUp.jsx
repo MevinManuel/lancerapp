@@ -133,12 +133,7 @@ function SignUp() {
         {/* Error/Success Message */}
         {message && <p className="message">{message}</p>}
 
-        <p className="continue-text">or continue with</p>
-        <div className="social-icons">
-          <button className="social-btn">Google</button>
-          <button className="social-btn">Apple</button>
-          <button className="social-btn">Facebook</button>
-        </div>
+       
         <br />
       </div>
       <div className="login-right">

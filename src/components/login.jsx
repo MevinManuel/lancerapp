@@ -13,6 +13,7 @@ function LoginPage() {
   const validateForm = (email, password) => {
     return /\S+@\S+\.\S+/.test(email) && password.length >= 6;
   };
+  
   const handleLogin = async (e) => {
     e.preventDefault();
   
@@ -26,10 +27,9 @@ function LoginPage() {
   
     const formData = { email, password };
   
-    // ✅ Determine the API endpoint based on admin email
     const isAdmin = email === "lancermini1@gmail.com";
     const loginUrl = isAdmin
-      ? "http://localhost:5000/admin/admin-login"  // Changed this URL
+      ? "http://localhost:5000/admin/admin-login"
       : "http://localhost:5000/login";
   
     try {
@@ -42,22 +42,20 @@ function LoginPage() {
       console.log("✅ Login response:", response.data);
   
       if (response.data.token) {
-        // Store token with role-specific key
         const tokenKey = isAdmin ? "adminToken" : "token";
         localStorage.setItem(tokenKey, response.data.token);
 
         console.log(`🛠️ Stored ${tokenKey}:`, localStorage.getItem(tokenKey));
       
-        // Clear form fields
         emailRef.current.value = "";
         passwordRef.current.value = "";
   
         if (isAdmin) {
           console.log("🔄 Navigating to /admin");
-          navigate("/admin"); // Redirect to admin page
+          navigate("/admin");
         } else {
           console.log("🔄 Navigating to /home");
-          navigate("/home"); // Redirect to user home page
+          navigate("/home");
         }
       } else {
         setMessage(response.data.message || "Login failed. Please try again.");
@@ -68,7 +66,6 @@ function LoginPage() {
     }
   };
   
-
   return (
     <div className="login-page">
       <div className="login-left">
@@ -85,21 +82,12 @@ function LoginPage() {
             <input type="password" ref={passwordRef} placeholder="Password" className="input-field" />
           </div>
 
-          <a href="#" className="forgot-password">Forgot Password?</a>
-
           <button type="submit" className="login-but">
             Continue
           </button>
         </form>
 
         {message && <p className="message">{message}</p>}
-
-        <p className="continue-text">or continue with</p>
-        <div className="social-icons">
-          <button className="social-btn">Google</button>
-          <button className="social-btn">Apple</button>
-          <button className="social-btn">Facebook</button>
-        </div>
 
         <br />
         <p className="footer-text">

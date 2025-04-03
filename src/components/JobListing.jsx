@@ -4,15 +4,21 @@ import "./styles/JobListing.css";
 
 const JobListing = () => {
   const navigate = useNavigate();
-  const [jobs, setJobs] = useState([]); // State to store job listings
+  const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const token = localStorage.getItem("token") || localStorage.getItem("adminToken");
 
   const fetchJobs = async () => {
     try {
-      const response = await fetch("http://localhost:5000/jobs"); // Fetch job listings from backend
+      const response = await fetch("http://localhost:5000/jobs", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await response.json();
       if (response.ok) {
-        setJobs(data.jobs.reverse()); // Ensure newest jobs appear at the top
+        setJobs(data.jobs.reverse());
       } else {
         console.error("Failed to fetch jobs:", data.message);
       }
@@ -24,27 +30,65 @@ const JobListing = () => {
   };
 
   useEffect(() => {
-    fetchJobs(); // Fetch jobs when component mounts
+    if (!token) {
+      navigate("/login");
+      return;
+    }
 
-    // Polling every 10 seconds to check for new jobs
-    const interval = setInterval(() => {
-      fetchJobs();
-    }, 10000); // 10 seconds interval
-
-    return () => clearInterval(interval); // Cleanup interval on unmount
-  }, []);
+    fetchJobs();
+    const interval = setInterval(fetchJobs, 10000);
+    return () => clearInterval(interval);
+  }, [token, navigate]);
 
   const handlePostJobClick = () => {
-    navigate("/jobform"); // Navigate to JobForm page
+    navigate("/jobform");
+  };
+
+  const handleAcceptJob = async (jobId) => {
+    if (!token) {
+      alert("Please log in to accept a job.");
+      navigate("/login");
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:5000/accept-job/${jobId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert("Job accepted successfully!");
+        fetchJobs();
+      } else {
+        console.error("Failed to accept job:", data.message);
+        alert(data.message);
+      }
+    } catch (error) {
+      console.error("Error accepting job:", error);
+      alert("An error occurred while accepting the job.");
+    }
+  };
+
+  const handleContactClick = (jobId) => {
+    if (!token) {
+      alert("Please log in to contact.");
+      navigate("/login");
+      return;
+    }
+    navigate(`/chat/${jobId}`); // Navigate to chat page with jobId
   };
 
   return (
     <div className="container">
-     <div className="bg-animation"></div>
+      <div className="bg-animation"></div>
       <div className="bg-noise"></div>
-    <h1 className="header">Explore Opportunities</h1>
-   
-      {/* Button to navigate to JobForm page */}
+      <h1 className="header">Explore Opportunities</h1>
+
       <button className="post-job-button" onClick={handlePostJobClick}>
         POST A JOB +
       </button>
@@ -58,10 +102,14 @@ const JobListing = () => {
           <div className="card-list">
             {jobs.map((job) => (
               <div key={job.id} className="job-card">
-                {/* Title & Contact Button in a Flex Container */}
                 <div className="card-header">
                   <h2 className="card-title">{job.title}</h2>
-                  <button className="contact-button">Contact &nbsp; →</button>
+                  <button
+                    className="contact-button"
+                    onClick={() => handleContactClick(job.id)}
+                  >
+                    Contact →
+                  </button>
                 </div>
 
                 <p className="card-location">{job.location}</p>
@@ -74,6 +122,13 @@ const JobListing = () => {
                     ))}
                 </div>
                 <div className="description-box">{job.description}</div>
+
+                <button
+                  className="accept-button"
+                  onClick={() => handleAcceptJob(job.id)}
+                >
+                  Accept
+                </button>
               </div>
             ))}
           </div>

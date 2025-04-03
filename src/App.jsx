@@ -24,17 +24,17 @@ function App() {
       <Route path="/" element={<SplashScreen />} /> {/* Splash Screen */}
       <Route path="/Onboard" element={<OnboardScreen />} /> {/* Onboard Screen */}
         <Route path="/login" element={<LoginPage />} /> {/* Login Page */}
-        <Route path="/SignUp" element={<SignUp />} /> {/* Login Page */}
-        <Route path="/home" element={<Home />} /> {/* Login Page */}
-        <Route path="/freelancer_search" element={<Pplsearch />} /> {/* Login Page */}
-        <Route path="/JobListing" element={<Jobsearch />} /> {/* Login Page */}
-        <Route path="/profileedit" element={<ProfileEdit />} /> {/* Profile Page */}
-        <Route path="/chat" element={<Chat />} /> {/* Profile Page */}
+        <Route path="/SignUp" element={<SignUp />} /> {/* signup Page */}
+        <Route path="/home" element={<Home />} /> {/* home Page */}
+        <Route path="/freelancer_search" element={<Pplsearch />} /> {/* search Page */}
+        <Route path="/JobListing" element={<Jobsearch />} /> {/* joblist Page */}
+        <Route path="/profileedit" element={<ProfileEdit />} /> {/* Profileedit Page */}
+        <Route path="/chat/:jobId" element={<Chat />} />
         <Route path="/Profile" element={<Profile />} /> {/* Profile Page */}
-        <Route path="/Chatbot" element={<Chatbot />} /> {/* Profile Page */}
-        <Route path="/jobform" element={<Jobform />} /> {/* Profile Page */}
-        <Route path="/Admin" element={<Admin />} /> {/* Profile Page */}
-        <Route path="/News" element={<News />} /> {/* Profile Page */}
+        <Route path="/Chatbot" element={<Chatbot />} /> {/* chatAI Page */}
+        <Route path="/jobform" element={<Jobform />} /> {/* jobform Page */}
+        <Route path="/Admin" element={<Admin />} /> {/* admin Page */}
+        <Route path="/News" element={<News />} /> {/* news Page */}
 
 
 

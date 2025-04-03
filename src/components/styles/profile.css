@@ -213,6 +213,48 @@
   color: rgb(116, 138, 72);
   transform: scale(1.1);
 }
+.accepted-jobs-section {
+  margin-top: 20px;
+  padding: 15px;
+  border-top: 1px solid #2a2f2a;
+  background-color: rgb(40, 52, 17);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.accepted-jobs-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: rgb(235, 250, 209);
+  text-align: center;
+}
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.job-card {
+  background: rgb(33, 41, 9);
+  border: 1px solid #3a4a3a;
+  border-radius: 8px;
+  padding: 15px;
+  width: 500px;
+  box-shadow: 0 2px 5px rgba(0, 255, 0, 0.2);
+  transition: transform 0.2s;
+}
+.job-card:hover {
+  transform: translateY(-5px);
+}
+
+.job-card h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #4caf50;
+}
 
 /* Responsive adjustments */
 @media (max-width: 480px) {

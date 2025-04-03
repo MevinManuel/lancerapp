@@ -18,16 +18,37 @@ export default function ProfileEdit() {
       linkedin: ""
     },
     profilePhoto: null,
-    resume: null, // New state for resume file
-    resumeName: "" // To store the uploaded file name
+    resume: null,
+    resumeName: ""
+  });
+
+  const [errors, setErrors] = useState({
+    mobile: ""
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setProfile((prevProfile) => ({
-      ...prevProfile,
-      [name]: value
-    }));
+    
+    if (name === "mobile") {
+      // Only allow numbers and limit to 10 digits
+      const numbersOnly = value.replace(/[^0-9]/g, '');
+      const truncatedValue = numbersOnly.slice(0, 10);
+      
+      setProfile((prevProfile) => ({
+        ...prevProfile,
+        [name]: truncatedValue
+      }));
+      
+      // Clear error when user types
+      if (errors.mobile) {
+        setErrors(prev => ({...prev, mobile: ""}));
+      }
+    } else {
+      setProfile((prevProfile) => ({
+        ...prevProfile,
+        [name]: value
+      }));
+    }
   };
 
   const handleSocialLinkChange = (e) => {
@@ -64,58 +85,61 @@ export default function ProfileEdit() {
     if (file) {
       setProfile((prevProfile) => ({
         ...prevProfile,
-        profilePhoto: file, // ✅ Store file object instead of Base64
+        profilePhoto: file,
       }));
     }
   };
 
-
-  // ✅ Handle Resume Upload (PDF)
   const handleResumeUpload = (e) => {
     const file = e.target.files[0];
     if (file && file.type === "application/pdf") {
       setProfile((prevProfile) => ({
         ...prevProfile,
-        resume: file, // Store the actual file
-        resumeName: file.name // Store the file name for display
+        resume: file,
+        resumeName: file.name
       }));
     } else {
       alert("Please upload a valid PDF file.");
     }
   };
 
-  
   const handleContinue = async () => {
+    // Validate mobile number before submission
+    if (profile.mobile.length !== 10) {
+      setErrors({ mobile: "Please enter a valid 10-digit mobile number" });
+      return;
+    }
+
     try {
       const token = localStorage.getItem('token');
       const formData = new FormData();
-  
-      formData.append("mobile", profile.mobile);
-      formData.append("role", profile.role);
-      formData.append("bio", profile.bio);
-      formData.append("city", profile.city);
-      formData.append("industry_interest", JSON.stringify(profile.industryInterests)); // ✅ Convert to JSON
-      formData.append("tools", JSON.stringify(profile.tools)); // ✅ Convert to JSON
-      formData.append("social_links", JSON.stringify(profile.socialLinks));
-  
+
+      formData.append("mobile", profile.mobile || "");
+      formData.append("role", profile.role || "");
+      formData.append("bio", profile.bio || "");
+      formData.append("city", profile.city || "");
+      formData.append("industry_interest", JSON.stringify(profile.industryInterests || []));
+      formData.append("tools", JSON.stringify(profile.tools || []));
+      formData.append("social_links", JSON.stringify(profile.socialLinks || {}));
+
       if (profile.profilePhoto) {
-        formData.append("photo", profile.profilePhoto); // ✅ Send actual file, not Base64
+        formData.append("photo", profile.profilePhoto);
       }
-  
+
       if (profile.resume) {
-        formData.append("resume", profile.resume); // ✅ Send actual file
+        formData.append("resume", profile.resume);
       }
-  
+
       const response = await fetch('http://localhost:5000/update-profile', {
         method: 'PUT',
         headers: {
-          'Authorization': `Bearer ${token}` // ✅ No need for Content-Type with FormData
+          'Authorization': `Bearer ${token}`
         },
         body: formData
       });
-  
+
       const data = await response.json();
-  
+
       if (response.ok) {
         console.log("Profile updated successfully:", data);
         navigate('/home');
@@ -126,9 +150,6 @@ export default function ProfileEdit() {
       console.error("Error connecting to server:", error);
     }
   };
-  
-  
-  
 
   return (
     <div className="profile-page">
@@ -136,13 +157,13 @@ export default function ProfileEdit() {
       <div className="bg-noises"></div>
       <div className="profile-container">
         <div className="profile-photos">
-        <div className="photo-boxs">
-  {profile.profilePhoto ? (
-    <img src={profile.profilePhoto} alt="Profile" className="profile-preview" />
-  ) : (
-    "+"
-  )}
-</div>
+          <div className="photo-boxs">
+            {profile.profilePhoto ? (
+              <img src={URL.createObjectURL(profile.profilePhoto)} alt="Profile" className="profile-preview" />
+            ) : (
+              "+"
+            )}
+          </div>
           <input type="file" accept="image/*" onChange={handlePhotoUpload} className="upload-input" />
           <button className="upload-btn" onClick={() => document.querySelector('.upload-input').click()}>
             Upload Photo
@@ -152,9 +173,20 @@ export default function ProfileEdit() {
         <div className="card">
           <h3>Personal Information</h3>
           <input type="text" name="city" placeholder="City" value={profile.city} onChange={handleInputChange} />
-          <input type="tel" name="mobile" placeholder="Mobile Number" value={profile.mobile} onChange={handleInputChange} />
+          <input 
+            type="tel" 
+            name="mobile" 
+            placeholder="Mobile Number" 
+            value={profile.mobile} 
+            onChange={handleInputChange}
+            maxLength="10"
+            pattern="[0-9]{10}"
+            title="Please enter exactly 10 digits"
+          />
+          {errors.mobile && <p className="error-message">{errors.mobile}</p>}
         </div>
 
+        {/* Rest of your JSX remains the same */}
         <div className="card">
           <h3>Bio</h3>
           <textarea name="bio" placeholder="Write your bio..." value={profile.bio} onChange={handleInputChange}></textarea>
@@ -205,7 +237,6 @@ export default function ProfileEdit() {
           </div>
         </div>
 
-        {/* ✅ Resume Upload Section */}
         <div className="card">
           <h3>Resume (PDF)</h3>
           <div className="resume-upload">
