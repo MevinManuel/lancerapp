@@ -1,0 +1,98 @@
+/* Define the neon green accent color */
+:root {
+  --neon-green: rgb(147, 205, 55);
+  --dark-bg: #0d1117;
+  --darker-bg: #161b22;
+  --dark-accent: #21262d;
+  --text-primary: #c9d1d9;
+  --text-secondary: #8b949e;
+}
+
+.chat-list-container {
+  width: 100vw;
+  min-height: 100vh;
+  background-image: url("public/images/bg.png"); /* Add your image URL here */
+  color: var(--text-primary);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chat-list-container h1 {
+  font-size: 2rem;
+  color: var(--neon-green);
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+}
+
+.chat-sections {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  gap: 20px;
+}
+
+.chat-section {
+  flex: 1;
+  background: var(--dark-accent);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.chat-section h2 {
+  font-size: 1.5rem;
+  color: var(--neon-green);
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.chat-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.chat-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: var(--darker-bg);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.chat-list-item:hover {
+  background: rgba(147, 205, 55, 0.2);
+}
+
+.job-title {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+.chat-user-name {
+  font-size: 1rem;
+  color: var(--neon-green);
+}
+
+.back-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: var(--neon-green);
+  color: #0d1117;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.back-button:hover {
+  background: rgba(147, 205, 55, 0.8);
+}

@@ -1,37 +1,59 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './styles/chat.css';
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import axios from 'axios';
 import io from 'socket.io-client';
-
-const socket = io('http://localhost:5000', {
-  withCredentials: true,
-  extraHeaders: {
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
-  },
-});
 
 const ChatPage = () => {
   const navigate = useNavigate();
   const { jobId } = useParams();
+  const location = useLocation();
   const [otherUser, setOtherUser] = useState(null);
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
-  const token = localStorage.getItem('token');
+  const token = location.state?.token; // Get token from navigation state
+  const socketRef = useRef(null);
 
   useEffect(() => {
+    if (!token) {
+      navigate('/lancerapp/login');
+      return;
+    }
+
+    socketRef.current = io('http://localhost:5000', {
+      withCredentials: true,
+      auth: { token },
+    });
+
+    const socket = socketRef.current;
+
     if (jobId) {
       socket.emit('joinRoom', jobId);
-
       socket.on('newMessage', (newMessage) => {
         setMessages((prevMessages) => [...prevMessages, newMessage]);
       });
-
-      return () => {
-        socket.off('newMessage');
-      };
+      socket.on('auth_error', (data) => {
+        console.error('Socket auth error:', data.message);
+        navigate('/lancerapp/login');
+      });
+      socket.on('room_error', (data) => {
+        console.error('Room error:', data.message);
+        alert(data.message);
+        navigate('/home', { state: { token } });
+      });
+      socket.on('room_joined', (data) => {
+        console.log(data.message);
+      });
     }
-  }, [jobId]);
+
+    return () => {
+      socket.disconnect();
+      socket.off('newMessage');
+      socket.off('auth_error');
+      socket.off('room_error');
+      socket.off('room_joined');
+    };
+  }, [jobId, token, navigate]);
 
   useEffect(() => {
     const fetchOtherUser = async () => {
@@ -44,32 +66,32 @@ const ChatPage = () => {
         } else {
           setOtherUser(null);
           alert("No chat partner available for this job.");
-          navigate("/home");
+          navigate('/home', { state: { token } });
         }
       } catch (error) {
         console.error('Error fetching other user:', error.response ? error.response.data : error.message);
         if (error.response) {
           if (error.response.status === 404) {
-            alert(`Error: ${error.response.data.message || 'Job not found.'} Details: ${error.response.data.details || 'Unknown'}`);
+            alert(`Error: ${error.response.data.message || 'Job not found.'}`);
           } else if (error.response.status === 401) {
-            navigate('/login');
+            navigate('/lancerapp/login');
           } else if (error.response.status === 403) {
-            alert(`Error: ${error.response.data.message || 'Unauthorized.'} Details: ${error.response.data.details || 'Unknown'}`);
-            navigate("/home");
+            alert(`Error: ${error.response.data.message || 'Unauthorized.'}`);
+            navigate('/home', { state: { token } });
           } else {
             alert(`An error occurred: ${error.response.data?.message || error.message}`);
           }
         } else {
           alert(`Network error: ${error.message}`);
         }
-        navigate("/home");
+        navigate('/home', { state: { token } });
       }
     };
 
     if (token && jobId) {
       fetchOtherUser();
     } else {
-      navigate('/login');
+      navigate('/lancerapp/login');
     }
   }, [token, navigate, jobId]);
 
@@ -86,10 +108,10 @@ const ChatPage = () => {
           if (error.response.status === 404) {
             alert(`Error: ${error.response.data.message || 'Job not found.'}`);
           } else if (error.response.status === 401) {
-            navigate('/login');
+            navigate('/lancerapp/login');
           } else if (error.response.status === 403) {
             alert(`Error: ${error.response.data.message || 'Unauthorized.'}`);
-            navigate("/home");
+            navigate('/home', { state: { token } });
           }
         }
       }
@@ -114,10 +136,10 @@ const ChatPage = () => {
       console.error('Error sending message:', error.response ? error.response.data : error.message);
       if (error.response) {
         if (error.response.status === 401) {
-          navigate('/login');
+          navigate('/lancerapp/login');
         } else if (error.response.status === 403) {
           alert(`Error: ${error.response.data.message || 'Unauthorized.'}`);
-          navigate("/home");
+          navigate('/home', { state: { token } });
         } else {
           alert(`Failed to send message: ${error.response.data?.message || error.message}`);
         }
@@ -128,7 +150,7 @@ const ChatPage = () => {
   return (
     <div className="chat-container">
       <aside className="sidebar">
-        <div className="back-arrow" onClick={() => navigate("/home")}>← Home</div>
+        <div className="back-arrow" onClick={() => navigate('/home', { state: { token } })}>← Home</div>
         <h2>Chat Room</h2>
         <div className="direct-messages">
           <h3>Chat With</h3>
@@ -139,7 +161,6 @@ const ChatPage = () => {
           )}
         </div>
       </aside>
-
       <main className="chat-window">
         <header className="chat-header">
           <h2>{otherUser ? `Chat with ${otherUser.username}` : "No Chat Available"}</h2>
@@ -156,7 +177,6 @@ const ChatPage = () => {
             </div>
           ))}
         </div>
-
         {otherUser && (
           <footer className="chat-input small-input">
             <input

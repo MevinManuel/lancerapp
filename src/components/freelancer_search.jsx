@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './styles/freelancer_search.css';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const FreelancerSearch = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const token = location.state?.token; // Get token from navigation state
   const [profiles, setProfiles] = useState([]);
   const [index, setIndex] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -9,12 +13,13 @@ const FreelancerSearch = () => {
 
   useEffect(() => {
     const fetchProfiles = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        if (!token) {
-          throw new Error('No authentication token found. Please log in.');
-        }
+      if (!token) {
+        setError('No authentication token found. Please log in.');
+        navigate('/lancerapp/login');
+        return;
+      }
 
+      try {
         const response = await fetch('http://localhost:5000/get-profile', {
           method: 'GET',
           headers: {
@@ -39,7 +44,7 @@ const FreelancerSearch = () => {
     };
 
     fetchProfiles();
-  }, []);
+  }, [token, navigate]);
 
   const handleGoBack = () => {
     if (index > 0) {
@@ -51,6 +56,10 @@ const FreelancerSearch = () => {
     if (index < profiles.length - 1) {
       setIndex(index + 1);
     }
+  };
+
+  const handleBackToHome = () => {
+    navigate('/home', { state: { token } });
   };
 
   if (loading) return <p>Loading profiles...</p>;
@@ -84,6 +93,7 @@ const FreelancerSearch = () => {
           <div className="button-container">
             <button onClick={handleGoBack} disabled={index === 0}>Back</button>
             <button onClick={handleGoForward} disabled={index === profiles.length - 1}>Forward</button>
+            <button onClick={handleBackToHome}>Back to Home</button>
           </div>
         </div>
       </div>

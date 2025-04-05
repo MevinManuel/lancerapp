@@ -2,19 +2,23 @@ import React, { useEffect, useState } from "react";
 import "./styles/profile.css";
 import { FaArrowLeft, FaInstagram, FaLinkedin } from "react-icons/fa";
 import axios from "axios";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const ProfilePage = () => {
   const [profileData, setProfileData] = useState(null);
   const [acceptedJobs, setAcceptedJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const token = location.state?.token; // Get token from navigation state
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = localStorage.getItem("token");
       if (!token) {
         setError("No token found. Please log in again.");
         setLoading(false);
+        navigate('/lancerapp/login');
         return;
       }
 
@@ -33,7 +37,7 @@ const ProfilePage = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setAcceptedJobs(jobsResponse.data.acceptedJobs);
+        setAcceptedJobs(jobsResponse.data.acceptedJobs || []);
       } catch (error) {
         setError(
           error.response?.data?.message || "Failed to fetch data. Please try again."
@@ -45,10 +49,10 @@ const ProfilePage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [token, navigate]); // Depend on token and navigate to refetch if token changes
 
   const handleBackClick = () => {
-    window.history.back();
+    navigate('/home', { state: { token } }); // Pass token back to home
   };
 
   if (loading) return <div>Loading...</div>;
@@ -116,7 +120,6 @@ const ProfilePage = () => {
             </div>
           </div>
 
-          {/* Accepted Jobs Section */}
           <div className="accepted-jobs-section">
             <h3>Accepted Jobs</h3>
             {acceptedJobs.length === 0 ? (

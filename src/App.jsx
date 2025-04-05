@@ -14,6 +14,7 @@ import Chatbot from './components/chatbot.jsx';
 import Jobform from './components/jobform.jsx';
 import Admin from './components/Admin.jsx';
 import News from './components/News.jsx';
+import ChatList from './components/ChatList.jsx'; // Import ChatList
 
 
 
@@ -35,7 +36,7 @@ function App() {
         <Route path="/jobform" element={<Jobform />} /> {/* jobform Page */}
         <Route path="/Admin" element={<Admin />} /> {/* admin Page */}
         <Route path="/News" element={<News />} /> {/* news Page */}
-
+        <Route path="/chat-list" element={<ChatList />} /> {/* Chat List Page */}
 
 
       </Routes>

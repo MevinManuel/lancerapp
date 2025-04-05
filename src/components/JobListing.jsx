@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./styles/JobListing.css";
 
 const JobListing = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const token = location.state?.token; // Get token from navigation state
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const token = localStorage.getItem("token") || localStorage.getItem("adminToken");
 
   const fetchJobs = async () => {
     try {
@@ -31,7 +31,7 @@ const JobListing = () => {
 
   useEffect(() => {
     if (!token) {
-      navigate("/login");
+      navigate("/lancerapp/login"); // Adjust path to match your login route
       return;
     }
 
@@ -41,13 +41,13 @@ const JobListing = () => {
   }, [token, navigate]);
 
   const handlePostJobClick = () => {
-    navigate("/jobform");
+    navigate("/jobform", { state: { token } }); // Pass token to jobform
   };
 
   const handleAcceptJob = async (jobId) => {
     if (!token) {
       alert("Please log in to accept a job.");
-      navigate("/login");
+      navigate("/lancerapp/login");
       return;
     }
 
@@ -77,10 +77,10 @@ const JobListing = () => {
   const handleContactClick = (jobId) => {
     if (!token) {
       alert("Please log in to contact.");
-      navigate("/login");
+      navigate("/lancerapp/login");
       return;
     }
-    navigate(`/chat/${jobId}`); // Navigate to chat page with jobId
+    navigate(`/chat/${jobId}`, { state: { token } }); // Pass token to chat page
   };
 
   return (

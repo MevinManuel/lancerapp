@@ -87,7 +87,7 @@
 }
 .back-button {
   position: absolute;
-  top: 40px;
+  top: 50px;
   left: 0; /* Aligns to the very left of the container */
   transform: translateX(-100%); /* Moves it completely outside the container */
   display: flex;

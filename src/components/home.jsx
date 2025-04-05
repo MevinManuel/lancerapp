@@ -1,19 +1,32 @@
 import './styles/home.css';
-import { useNavigate } from "react-router-dom";
-import { FaUsers, FaSearch, FaCommentDots, FaChevronDown } from "react-icons/fa"; // Import FA icons
+import { useNavigate, useLocation } from "react-router-dom";
+import { FaUsers, FaSearch, FaCommentDots, FaChevronDown } from "react-icons/fa";
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const token = location.state?.token; // Get token from navigation state
 
   const handleNavigation = (path) => {
-    navigate(path);
+    if (!token) {
+      navigate('/lancerapp/login');
+      return;
+    }
+    navigate(path, { state: { token } });
   };
 
-  // Function to scroll down to features section
+  const handleChatNavigation = () => {
+    if (!token) {
+      navigate('/lancerapp/login');
+      return;
+    }
+    navigate('/chat-list', { state: { token } });
+  };
+
   const scrollToFeatures = () => {
     const featuresSection = document.querySelector(".features");
     if (featuresSection) {
-      const offset = 50; // Adjust this value to control the exact scroll position
+      const offset = 50;
       window.scrollTo({
         top: featuresSection.offsetTop - offset,
         behavior: "smooth",
@@ -29,10 +42,8 @@ const HomePage = () => {
       <nav className="navbar">
         <div className="logo"></div>
         <div className="nav-right">
-          {/* News Button */}
-          <button className="news-btn" onClick={() => handleNavigation("/news")}> News </button>
-          {/* Profile Button */}
-          <button className="profile-btn" onClick={() => handleNavigation("/profile")}> Profile </button>
+          <button className="news-btn" onClick={() => handleNavigation("/news")}>News</button>
+          <button className="profile-btn" onClick={() => handleNavigation("/profile")}>Profile</button>
         </div>
       </nav>
 
@@ -44,15 +55,13 @@ const HomePage = () => {
             Accelerate Your <span className="highlight">Growth</span>
           </h1>
           <p>Unleash your full potential and bring your vision to life</p>
-
-          {/* Scroll Down Arrow Button */}
           <button className="scroll-down-btn" onClick={scrollToFeatures}>
             <FaChevronDown />
           </button>
         </section>
 
         <section className="features">
-          <div className="feature-card" onClick={() => handleNavigation("/freelancer_search")}> 
+          <div className="feature-card" onClick={() => handleNavigation("/freelancer_search")}>
             <div className="icon-container">
               <FaUsers className="icon" />
             </div>
@@ -64,7 +73,7 @@ const HomePage = () => {
             <p>Connect with skilled freelancers who share your passion and interest</p>
           </div>
 
-          <div className="feature-card" onClick={() => handleNavigation("/JobListing")}> 
+          <div className="feature-card" onClick={() => handleNavigation("/JobListing")}>
             <div className="icon-container">
               <FaSearch className="icon" />
             </div>
@@ -76,7 +85,7 @@ const HomePage = () => {
             <p>Browse job offers by some of the best companies</p>
           </div>
 
-          <div className="feature-card" onClick={() => handleNavigation("/chat")}>
+          <div className="feature-card" onClick={handleChatNavigation}>
             <div className="icon-container">
               <FaCommentDots className="icon" />
             </div>
@@ -93,17 +102,19 @@ const HomePage = () => {
           </h2>
         </section>
 
-        <section className="newsletter"> 
+        <section className="newsletter">
           <div className="newsletter-content">
             <h3>
               Stay Updated with <span className="highlight">Lancer AI</span> – Your Chat Assistant for Market Trends & Insights
             </h3>
             <p>
-              Get the latest freelancer trends, industry updates, and valuable insights on skills in demand.  
-              Lancer AI keeps you informed so you can stay ahead in the freelance world.  
+              Get the latest freelancer trends, industry updates, and valuable insights on skills in demand.
+              Lancer AI keeps you informed so you can stay ahead in the freelance world.
               Chat now and explore what's trending!
             </p>
-            <button className="subscribe-btn" onClick={() => handleNavigation("/chatbot")}>Chat with Lancer AI</button>
+            <button className="subscribe-btn" onClick={() => handleNavigation("/chatbot")}>
+              Chat with Lancer AI
+            </button>
           </div>
         </section>
 

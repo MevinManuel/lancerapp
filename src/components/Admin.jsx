@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import "./styles/Admin.css";
 
 const Admin = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const token = location.state?.token; // Use navigation state token
   const [selectedTab, setSelectedTab] = useState("users");
   const [jobPosts, setJobPosts] = useState([]);
   const [users, setUsers] = useState([]);
-  const [userCount, setUserCount] = useState(0);
+  const [userCount, setUserCount] = useState(null);
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [deleteJobId, setDeleteJobId] = useState(null);
   const [announcementTitle, setAnnouncementTitle] = useState("");
   const [announcementContent, setAnnouncementContent] = useState("");
-
-  const token = localStorage.getItem("adminToken");
+  const [error, setError] = useState(null);
 
   const axiosInstance = axios.create({
     baseURL: "http://localhost:5000",
@@ -23,32 +26,33 @@ const Admin = () => {
   });
 
   useEffect(() => {
+    if (!token) {
+      navigate("/lancerapp/admin-login"); // Redirect if no token
+      return;
+    }
+
     const fetchUserCount = async () => {
       try {
         const response = await axiosInstance.get("/admin/user-count");
         setUserCount(response.data.userCount);
       } catch (error) {
         console.error("Error fetching user count:", error);
+        setError(error.response?.data?.message || "Failed to fetch user count.");
       }
     };
-    fetchUserCount();
-  }, []);
 
-  useEffect(() => {
     const fetchUsers = async () => {
       try {
         console.log("Fetching users with token:", token);
-        const response = await axiosInstance.get("/get-profile");
+        const response = await axiosInstance.get("/admin/get-profile");
         console.log("Fetched users:", response.data);
         setUsers(response.data);
       } catch (error) {
         console.error("Error fetching user profiles:", error);
+        setError(error.response?.data?.message || "Failed to fetch user profiles.");
       }
     };
-    fetchUsers();
-  }, []);
 
-  useEffect(() => {
     const fetchJobs = async () => {
       try {
         const response = await axiosInstance.get("/jobs");
@@ -56,10 +60,14 @@ const Admin = () => {
         setJobPosts(response.data.jobs);
       } catch (error) {
         console.error("Error fetching job posts:", error);
+        setError(error.response?.data?.message || "Failed to fetch job posts.");
       }
     };
+
+    fetchUserCount();
+    fetchUsers();
     fetchJobs();
-  }, []);
+  }, [token, navigate]);
 
   const handleDeleteJob = (id) => {
     setDeleteJobId(id);
@@ -73,13 +81,13 @@ const Admin = () => {
         setJobPosts(jobPosts.filter((job) => job.id !== deleteJobId));
         setShowDeletePopup(false);
         setDeleteJobId(null);
+        alert("Job deleted successfully!");
       }
     } catch (error) {
       console.error("Error deleting job:", error);
-      if (error.response?.status === 404) {
-        alert("Job not found in the database.");
-      } else {
-        alert("Failed to delete job. Please try again.");
+      alert(error.response?.data?.message || "Failed to delete job.");
+      if (error.response?.status === 401) {
+        navigate("/lancerapp/admin-login");
       }
     }
   };
@@ -96,21 +104,18 @@ const Admin = () => {
         content: announcementContent,
       });
       console.log("Announcement posted:", response.data);
-      alert(response.data.message); // Show the backend message (e.g., includes email status)
+      alert(response.data.message);
       setAnnouncementTitle("");
       setAnnouncementContent("");
     } catch (error) {
       console.error("Error posting announcement:", error);
-      if (error.response) {
-        console.error("Response data:", error.response.data);
-        alert(error.response.data.message || "Failed to post announcement.");
-      } else {
-        alert("Failed to post announcement. Please try again.");
-      }
+      alert(error.response?.data?.message || "Failed to post announcement.");
     }
   };
 
   const renderContent = () => {
+    if (error) return <div className="content-box">{error}</div>;
+
     switch (selectedTab) {
       case "users":
         return (
@@ -118,7 +123,7 @@ const Admin = () => {
             <div className="user-count-box">
               <h2>Total Users: {userCount !== null ? userCount : "Loading..."}</h2>
             </div>
-            <br></br>
+            <br />
             <div className="list-container">
               {users.length > 0 ? (
                 users.map((user) => (
@@ -126,7 +131,7 @@ const Admin = () => {
                     <img src={user.photo} alt={user.username} className="user-photo" />
                     <div className="list-info">
                       <h3>{user.username}</h3>
-                      <p>📞 {user.mobile}</p>
+                      <p>📞 {user.mobile || "N/A"}</p>
                       {user.social_links?.linkedin && (
                         <a href={user.social_links.linkedin} target="_blank" rel="noopener noreferrer">
                           🔗 LinkedIn
@@ -141,7 +146,7 @@ const Admin = () => {
                   </div>
                 ))
               ) : (
-                <p></p>
+                <p>No users found or loading...</p>
               )}
             </div>
           </div>
@@ -158,15 +163,17 @@ const Admin = () => {
                     <button className="delete-btn" onClick={() => handleDeleteJob(job.id)}>❌</button>
                     <div className="list-info">
                       <h3>{job.title}</h3>
-                      <p>📍 {job.location}</p>
+                      <p>📍 {job.location || "N/A"}</p>
                       <p>{job.description}</p>
                       <br />
-                      {job.skills && <p>🛠️ Skills: {job.skills}</p>}
+                      {job.skills && (
+                        <p>🛠️ Skills: {Array.isArray(job.skills) ? job.skills.join(", ") : job.skills}</p>
+                      )}
                     </div>
                   </div>
                 ))
               ) : (
-                <p>Loading job posts...</p>
+                <p>No job posts found or loading...</p>
               )}
             </div>
           </div>

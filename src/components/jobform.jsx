@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
-import "./styles/jobform.css"; // Importing the dark-themed CSS
+import { useNavigate, useLocation } from "react-router-dom"; // Add useLocation
+import "./styles/jobform.css";
 
 const JobForm = () => {
-  const navigate = useNavigate(); // Initialize navigation
+  const navigate = useNavigate();
+  const location = useLocation();
+  const token = location.state?.token; // Get token from navigation state
 
   const [formData, setFormData] = useState({
     title: "",
@@ -51,16 +53,16 @@ const JobForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    const token = localStorage.getItem("token"); // Get JWT token from localStorage
+
     if (!token) {
       alert("Please log in to post a job.");
+      navigate("/lancerapp/login"); // Adjust to your login path
       return;
     }
 
     if (isTokenExpired(token)) {
       alert("Your session has expired. Please log in again.");
-      localStorage.removeItem("token"); // Remove expired token
+      navigate("/lancerapp/login");
       return;
     }
 
@@ -71,7 +73,7 @@ const JobForm = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: token ? `Bearer ${token}` : "",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           title: formData.title,
@@ -89,6 +91,7 @@ const JobForm = () => {
       if (response.ok) {
         alert("Job posted successfully!");
         setFormData({ title: "", location: "", availability: "", profession: [], description: "" });
+        navigate("/JobListing", { state: { token } }); // Navigate back with token
       } else {
         alert(data.message || "Failed to post job.");
       }
@@ -101,7 +104,10 @@ const JobForm = () => {
   return (
     <div className="form-container">
       {/* Back Button */}
-      <button className="buttt" onClick={() => navigate("/JobListing")}>
+      <button
+        className="buttt"
+        onClick={() => navigate("/JobListing", { state: { token } })} // Pass token back
+      >
         ←
       </button>
 

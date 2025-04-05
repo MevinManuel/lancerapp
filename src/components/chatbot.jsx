@@ -8,8 +8,7 @@ const Chatbot = () => {
   const [loading, setLoading] = useState(false);
 
   const HUGGINGFACE_API_KEY = import.meta.env.VITE_HUGGINGFACE_API_KEY;
-  const GROK_API_KEY = import.meta.env.VITE_GROK_API_KEY;
-  // Remove DEEPSEEK_API_KEY since we’ll use OpenRouter for both
+  const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY; // Use OpenRouter API key
 
   const handleSend = async (e) => {
     e.preventDefault();
@@ -28,7 +27,7 @@ const Chatbot = () => {
         botResponse = await fetchAIResponse(input);
       }
     } catch (error) {
-      botResponse = "Error: Unable to fetch response. Check API keys or limits.";
+      botResponse = `Error: Unable to fetch response. ${error.message}`;
     }
 
     setMessages([...newMessages, { sender: "bot", text: botResponse }]);
@@ -42,23 +41,25 @@ const Chatbot = () => {
         { inputs: query },
         {
           headers: {
-            Authorization: `Bearer ${HUGGINGFACE_API_KEY}`, // Fixed template literal
+            Authorization: `Bearer ${HUGGINGFACE_API_KEY}`,
             "Content-Type": "application/json",
           },
         }
       );
-  
+
       return response.data[0]?.generated_text || "I'm not sure how to respond to that.";
     } catch (error) {
-      console.error("❌ Error fetching AI response:", error);
-      return "I'm having trouble fetching data. Please try again later.";
+      console.error("❌ Error fetching AI response:", error.response?.data || error.message);
+      return "I'm having trouble fetching data from Hugging Face. Please try again later.";
     }
   };
 
-
-
   const fetchIndustryNews = async () => {
     try {
+      if (!OPENROUTER_API_KEY) {
+        throw new Error("OpenRouter API key is missing. Please check your environment variables.");
+      }
+
       const response = await axios.post(
         "https://openrouter.ai/api/v1/chat/completions",
         {
@@ -73,14 +74,19 @@ const Chatbot = () => {
         },
         {
           headers: {
-            Authorization: `Bearer ${GROK_API_KEY}`, // Reuse GrokChat key
+            Authorization: `Bearer ${OPENROUTER_API_KEY}`, // Use OpenRouter API key
             "Content-Type": "application/json",
+            "HTTP-Referer": "http://localhost:5173", // Optional: Add your app's URL
+            "X-Title": "Lancer AI Chatbot", // Optional: Add your app's name
           },
         }
       );
       return response.data.choices[0].message.content || "No trends available.";
     } catch (error) {
-      console.error("❌ Error fetching DeepSeek trends:", error.response?.status, error.message);
+      console.error("❌ Error fetching DeepSeek trends:", error.response?.status, error.response?.data || error.message);
+      if (error.response?.status === 401) {
+        throw new Error("Unauthorized: Invalid OpenRouter API key. Please check your VITE_OPENROUTER_API_KEY in the .env file.");
+      }
       throw error;
     }
   };
