@@ -44,7 +44,7 @@ git clone https://github.com/yourusername/lancer.git
 cd lancer
 ```
 
-###2. Install dependencies
+### 2. Install dependencies
    
 # Frontend
 cd client
@@ -55,7 +55,7 @@ cd ../server
 npm install
 
 
-###3. Start the development server
+### 3. Start the development server
 
 # Backend
 npm run dev
@@ -65,19 +65,20 @@ cd ../client
 npm start
 
 <br>
-##🎯 Future Enhancements 
+
+## 🎯 Future Enhancements 
 AI-powered skill recommendations
 
 Blockchain-based verified badges
 
 
-##🤝 Contributing
+## 🤝 Contributing
 Contributions, issues, and feature requests are welcome!
 Feel free to fork the project and open a pull request.
 
-##📄 License
+## 📄 License
 This project is licensed under the MIT License.
 
-##💬 Connect
+## 💬 Connect
 Made with ❤️ by Mevin Manuel, Alphonsa Maria, R Balagopal
 📧 mevinmnl123@gmail.com
