@@ -30,29 +30,11 @@
 | Frontend       | Backend       | Database | Design Tool |
 |----------------|---------------|----------|-------------|
 | React.js       | Node.js       | MongoDB  | Figma       |
-| Tailwind CSS   | Express.js    | Mongoose |             |
+| Tailwind CSS   | Express.js    |          |             |
 
 ---
 
-## 📁 Project Structure
 
-lancer/
-├── client/ # React frontend
-│ ├── components/
-│ ├── pages/
-│ └── styles/
-├── server/ # Node.js + Express backend
-│ ├── models/
-│ ├── routes/
-│ └── controllers/
-├── assets/ # Static files (diagrams, logos, etc.)
-└── README.md
-
-yaml
-Copy
-Edit
-
----
 
 ## 🚧 Installation
 
@@ -62,7 +44,7 @@ git clone https://github.com/yourusername/lancer.git
 cd lancer
 ```
 
-2. Install dependencies
+###2. Install dependencies
    
 # Frontend
 cd client
@@ -73,7 +55,7 @@ cd ../server
 npm install
 
 
-3. Start the development server
+###3. Start the development server
 
 # Backend
 npm run dev
@@ -82,21 +64,20 @@ npm run dev
 cd ../client
 npm start
 
-
-🎯 Future Enhancements 
+<br>
+##🎯 Future Enhancements 
 AI-powered skill recommendations
 
 Blockchain-based verified badges
 
 
-🤝 Contributing
+##🤝 Contributing
 Contributions, issues, and feature requests are welcome!
 Feel free to fork the project and open a pull request.
 
-📄 License
+##📄 License
 This project is licensed under the MIT License.
 
-💬 Connect
-Made with ❤️ by [Your Name]
-📧 [your.email@example.com]
-🔗 LinkedIn | Portfolio
+##💬 Connect
+Made with ❤️ by Mevin Manuel, Alphonsa Maria, R Balagopal
+📧 mevinmnl123@gmail.com
